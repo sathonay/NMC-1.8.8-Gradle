@@ -616,7 +616,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     private void createDisplay() throws LWJGLException
     {
         Display.setResizable(true);
-        Display.setTitle("Minecraft 1.8.8");
+        Display.setTitle("Nakory Client 1.8.8");
 
         try
         {
