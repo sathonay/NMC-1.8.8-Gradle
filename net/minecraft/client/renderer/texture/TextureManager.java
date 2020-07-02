@@ -73,7 +73,7 @@ public class TextureManager implements ITickable, IResourceManagerReloadListener
         }
     }
 
-    public boolean loadTexture(ResourceLocation textureLocation, ITextureObject textureObj)
+    public boolean loadTexture(ResourceLocation textureLocation, final ITextureObject textureObj)
     {
         boolean flag = true;
         ITextureObject itextureobject = textureObj;
