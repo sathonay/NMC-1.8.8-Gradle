@@ -1478,7 +1478,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage
             this.leftClickCounter = 0;
         }
 
-        if (this.leftClickCounter <= 0 && !this.thePlayer.isUsingItem())
+        //NMC remove the check if the player is using an item if (this.leftClickCounter <= 0 && !this.thePlayer.isUsingItem())
+        if (this.leftClickCounter <= 0)
         {
             if (leftClick && this.objectMouseOver != null && this.objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
             {
@@ -1528,13 +1529,16 @@ public class Minecraft implements IThreadListener, IPlayerUsage
                             this.playerController.clickBlock(blockpos, this.objectMouseOver.sideHit);
                             break;
                         }
-
+                        
+                    // NMC-1.8.8 - Remove the miss hit detection
+                    /*
                     case MISS:
                     default:
                         if (this.playerController.isNotCreative())
                         {
                             this.leftClickCounter = 10;
                         }
+                    */
                 }
             }
         }
