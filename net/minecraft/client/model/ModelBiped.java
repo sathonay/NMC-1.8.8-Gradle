@@ -170,7 +170,8 @@ public class ModelBiped extends ModelBase
 
             case 3:
                 this.bipedRightArm.rotateAngleX = this.bipedRightArm.rotateAngleX * 0.5F - ((float)Math.PI / 10F) * (float)this.heldItemRight;
-                this.bipedRightArm.rotateAngleY = -0.5235988F;
+                // NMC-1.8.8 - Remove the Y hand move when blocking with a sword
+                //this.bipedRightArm.rotateAngleY = -0.5235988F;
         }
 
         this.bipedLeftArm.rotateAngleY = 0.0F;
