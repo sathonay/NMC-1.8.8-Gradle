@@ -7,7 +7,7 @@ import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
 import java.util.Arrays;
 import java.util.BitSet;
-import net.minecraft.client.renderer.WorldRenderer$1;
+import net.minecraft.client.renderer.WorldRendererComparator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
@@ -113,7 +113,7 @@ public class WorldRenderer
             ainteger[k] = Integer.valueOf(k);
         }
 
-        Arrays.sort(ainteger, new WorldRenderer$1(this, afloat));
+        Arrays.sort(ainteger, new WorldRendererComparator(this, afloat));
         BitSet bitset = new BitSet();
         int l = this.vertexFormat.getNextOffset();
         int[] aint = new int[l];
