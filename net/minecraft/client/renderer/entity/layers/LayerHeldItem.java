@@ -2,6 +2,7 @@ package net.minecraft.client.renderer.entity.layers;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -9,6 +10,7 @@ import net.minecraft.client.renderer.entity.RendererLivingEntity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -61,6 +63,28 @@ public class LayerHeldItem implements LayerRenderer<EntityLivingBase>
             if (entitylivingbaseIn.isSneaking())
             {
                 GlStateManager.translate(0.0F, 0.203125F, 0.0F);
+            }
+            
+            // NMC-1.8.8 - old sword helding & blocking animation like 1.7
+            if (entitylivingbaseIn instanceof AbstractClientPlayer) {
+            	AbstractClientPlayer player = ((AbstractClientPlayer)entitylivingbaseIn);
+            	
+            	if (item.getItemUseAction(itemstack) == EnumAction.BLOCK) {
+            		//NMC-1.8.8 - Check if the player is using the item
+            		if (player.getItemInUseCount() > 0) {
+                		//NMC-1.8.8 - Old blocking animation
+            			GlStateManager.translate(0.025F, 0.1F, -0.0F);
+                		GlStateManager.rotate(-35.0F, 0.0F, 1.0F, 0.0F);
+                		GlStateManager.rotate(-20.0F, 1.0F, 0.0F, 0.0F);
+                		GlStateManager.rotate(-60.0F, 0.0F, 0.0F, 1.0F);
+            		} else {
+                		//NMC-1.8.8 - Old helding
+            			GlStateManager.translate(0.0F, 0.05F, 0.1F);
+                		GlStateManager.rotate(0.0F, 0.0F, 1.0F, 0.0F);
+                		GlStateManager.rotate(-15.50F, 1.0F, 0.0F, 0.0F);
+                		GlStateManager.rotate(0.0F, 0.0F, 0.0F, 1.0F);
+            		}
+            	}
             }
 
             minecraft.getItemRenderer().renderItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON);
