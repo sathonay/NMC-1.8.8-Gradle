@@ -670,8 +670,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
             try
             {
-                inputstream = this.mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("icons/icon_16x16.png"));
-                inputstream1 = this.mcDefaultResourcePack.getInputStreamAssets(new ResourceLocation("icons/icon_32x32.png"));
+                inputstream = this.mcDefaultResourcePack.getResourceStream(new ResourceLocation("icons/icon_16x16.png"));
+                inputstream1 = this.mcDefaultResourcePack.getResourceStream(new ResourceLocation("icons/icon_32x32.png"));
 
                 if (inputstream != null && inputstream1 != null)
                 {
