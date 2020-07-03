@@ -2,6 +2,8 @@ package net.minecraft.client.gui;
 
 import java.io.IOException;
 
+import org.lwjgl.opengl.GL11;
+
 import com.nakory.gui.GuiClientOptions;
 
 import net.minecraft.client.gui.achievement.GuiAchievements;
@@ -9,6 +11,7 @@ import net.minecraft.client.gui.achievement.GuiStats;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.realms.RealmsBridge;
+import net.minecraft.util.ResourceLocation;
 
 public class GuiIngameMenu extends GuiScreen
 {
@@ -19,6 +22,9 @@ public class GuiIngameMenu extends GuiScreen
      * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
      * window resizes, the buttonList is cleared beforehand.
      */
+    
+    private static final ResourceLocation logo = new ResourceLocation("nakory/x512.png");
+    
     public void initGui()
     {
         this.field_146445_a = 0;
@@ -113,8 +119,13 @@ public class GuiIngameMenu extends GuiScreen
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
+    	
         this.drawDefaultBackground();
-        this.drawCenteredString(this.fontRendererObj, I18n.format("menu.game", new Object[0]), this.width / 2, 40, 16777215);
+        //this.drawCenteredString(this.fontRendererObj, I18n.format("menu.game", new Object[0]), this.width / 2, 40, 16777215);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        this.mc.getTextureManager().bindTexture(logo);
+        this.drawModalRectWithCustomSizedTexture(width / 2 - 32, height / 4 - 54, 0, 0, 64, 64, 64, 64);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 }

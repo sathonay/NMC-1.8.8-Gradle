@@ -69,7 +69,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
     private String openGLWarningLink;
     //private static final ResourceLocation splashTexts = new ResourceLocation("texts/splashes.txt");
     //private static final ResourceLocation minecraftTitleTextures = new ResourceLocation("textures/gui/title/minecraft.png");
-    private static final ResourceLocation logo = new ResourceLocation("nakory/logo.png");
+    private static final ResourceLocation logo = new ResourceLocation("nakory/x512.png");
 
     /** An array of all the paths to the panorama pictures. */
     private static final ResourceLocation[] titlePanoramaPaths = new ResourceLocation[] {new ResourceLocation("textures/gui/title/background/panorama_0.png"), new ResourceLocation("textures/gui/title/background/panorama_1.png"), new ResourceLocation("textures/gui/title/background/panorama_2.png"), new ResourceLocation("textures/gui/title/background/panorama_3.png"), new ResourceLocation("textures/gui/title/background/panorama_4.png"), new ResourceLocation("textures/gui/title/background/panorama_5.png")};
