@@ -1552,8 +1552,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage
      */
     private void rightClickMouse()
     {
-        if (!this.playerController.func_181040_m())
-        {
+    	//NMC-1.8.8 - Remove isHittingBlock check
+        //if (!this.playerController.func_181040_m())
+        //{
             this.rightClickDelayTimer = 4;
             boolean flag = true;
             ItemStack itemstack = this.thePlayer.inventory.getCurrentItem();
@@ -1617,7 +1618,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
                     this.entityRenderer.itemRenderer.resetEquippedProgress2();
                 }
             }
-        }
+        //}
     }
 
     /**
