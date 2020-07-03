@@ -216,7 +216,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
 
         this.buttonList.add(new GuiButton(0, this.width / 2 - 100, j + 24 * 3, 98, 20, I18n.format("menu.options", new Object[0])));
         this.buttonList.add(new GuiButton(4, this.width / 2 + 2, j + 24 * 3, 98, 20, I18n.format("menu.quit", new Object[0])));
-        this.buttonList.add(new GuiButtonLanguage(5, this.width / 2 - 124, j + 24 * 3));
+        //this.buttonList.add(new GuiButtonLanguage(5, this.width / 2 - 124, j + 24 * 3));
 
         synchronized (this.threadLock)
         {
