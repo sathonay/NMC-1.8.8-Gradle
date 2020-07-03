@@ -3,6 +3,7 @@ package com.nakory.cape;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
@@ -23,7 +24,7 @@ import net.minecraft.util.ResourceLocation;
 import optifine.CapeUtils;
 
 public class CapeThread extends Thread {
-	
+	/*
 	private static CapeThread thread;
 	
 	private final Map<String, AbstractClientPlayer> MAP;
@@ -43,11 +44,6 @@ public class CapeThread extends Thread {
 	@Override
 	public void run() {
 		super.run();
-		
-		try {
-			Thread.sleep(100);
-		} catch (InterruptedException e) {}
-		
 		for (Entry<String, AbstractClientPlayer> entry : this.MAP.entrySet()) {
 			final String username = entry.getKey();
 			final AbstractClientPlayer player = entry.getValue();
@@ -72,8 +68,49 @@ public class CapeThread extends Thread {
 		thread = null;
         this.stop();
 	}
+	*/
+	
+	private String username;
+	private WeakReference<AbstractClientPlayer> playerRef;
+	
+	public CapeThread(String username, AbstractClientPlayer abstractClientPlayer) {
+		this.username = username;
+		this.playerRef = new WeakReference<AbstractClientPlayer>(abstractClientPlayer);
+		start();
+	}
+	
+	@Override
+	public void run() {
+		super.run();
+		
+		String ofCapeUrl = "http://nakory.online/capes/" + username + ".png";
+	    try {
+	       	if(!doesURLExist(ofCapeUrl)) ofCapeUrl = "http://s.optifine.net/capes/" + username + ".png";
+		} catch (IOException e) {
+	           ofCapeUrl = "http://s.optifine.net/capes/" + username + ".png";
+		}
+	        
+        String mptHash = FilenameUtils.getBaseName(ofCapeUrl);
+	    final ResourceLocation resourceLocation = new ResourceLocation("capeof/" + mptHash);
+	    TextureManager textureManager = Minecraft.getMinecraft().getTextureManager();
+	    ITextureObject tex = textureManager.getTexture(resourceLocation);
+	    
+	    AbstractClientPlayer player = this.playerRef.get();
+	    
+	    if(player == null) {
+	        this.stop();
+	    	return;
+	    }
+	    
+	    IImageBuffer iib = new CapeImageBuffer(player, resourceLocation);
+	        
+	    ThreadDownloadImageData textureCape = new ThreadDownloadImageData((File)null, ofCapeUrl, (ResourceLocation)null, iib);
+	    textureCape.pipeline = true;
+	    textureManager.loadTexture(resourceLocation, textureCape);
+        this.stop();
+	}
 
-	public static boolean doesURLExist(String url) throws IOException
+	private static boolean doesURLExist(String url) throws IOException
     {
     	
     	URL url2 = new URL(url);
