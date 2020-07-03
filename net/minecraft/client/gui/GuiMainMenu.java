@@ -67,8 +67,9 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
 
     /** Link to the Mojang Support about minimum requirements */
     private String openGLWarningLink;
-    private static final ResourceLocation splashTexts = new ResourceLocation("texts/splashes.txt");
-    private static final ResourceLocation minecraftTitleTextures = new ResourceLocation("textures/gui/title/minecraft.png");
+    //private static final ResourceLocation splashTexts = new ResourceLocation("texts/splashes.txt");
+    //private static final ResourceLocation minecraftTitleTextures = new ResourceLocation("textures/gui/title/minecraft.png");
+    private static final ResourceLocation logo = new ResourceLocation("nakory/logo.png");
 
     /** An array of all the paths to the panorama pictures. */
     private static final ResourceLocation[] titlePanoramaPaths = new ResourceLocation[] {new ResourceLocation("textures/gui/title/background/panorama_0.png"), new ResourceLocation("textures/gui/title/background/panorama_1.png"), new ResourceLocation("textures/gui/title/background/panorama_2.png"), new ResourceLocation("textures/gui/title/background/panorama_3.png"), new ResourceLocation("textures/gui/title/background/panorama_4.png"), new ResourceLocation("textures/gui/title/background/panorama_5.png")};
@@ -87,6 +88,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
     public GuiMainMenu()
     {
         this.openGLWarning2 = field_96138_a;
+        /*
         this.splashText = "missingno";
         BufferedReader bufferedreader = null;
 
@@ -137,6 +139,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
                 }
             }
         }
+        */
 
         this.updateCounter = RANDOM.nextFloat();
         this.openGLWarning1 = "";
@@ -181,6 +184,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
     {
         this.viewportTexture = new DynamicTexture(256, 256);
         this.backgroundTexture = this.mc.getTextureManager().getDynamicTextureLocation("background", this.viewportTexture);
+        /*
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
 
@@ -196,9 +200,10 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
         {
             this.splashText = "OOoooOOOoooo! Spooky!";
         }
-
+        */
+        
         int i = 24;
-        int j = this.height / 4 + 48;
+        int j = this.height / 4 + 52;
 
         if (this.mc.isDemo())
         {
@@ -209,9 +214,9 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
             this.addSingleplayerMultiplayerButtons(j, 24);
         }
 
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, j + 72 + 12, 98, 20, I18n.format("menu.options", new Object[0])));
-        this.buttonList.add(new GuiButton(4, this.width / 2 + 2, j + 72 + 12, 98, 20, I18n.format("menu.quit", new Object[0])));
-        this.buttonList.add(new GuiButtonLanguage(5, this.width / 2 - 124, j + 72 + 12));
+        this.buttonList.add(new GuiButton(0, this.width / 2 - 100, j + 24 * 3, 98, 20, I18n.format("menu.options", new Object[0])));
+        this.buttonList.add(new GuiButton(4, this.width / 2 + 2, j + 24 * 3, 98, 20, I18n.format("menu.quit", new Object[0])));
+        this.buttonList.add(new GuiButtonLanguage(5, this.width / 2 - 124, j + 24 * 3));
 
         synchronized (this.threadLock)
         {
@@ -232,9 +237,9 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
      */
     private void addSingleplayerMultiplayerButtons(int p_73969_1_, int p_73969_2_)
     {
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, p_73969_1_, I18n.format("menu.singleplayer", new Object[0])));
-        this.buttonList.add(new GuiButton(2, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 1, I18n.format("menu.multiplayer", new Object[0])));
-        this.buttonList.add(this.realmsButton = new GuiButton(14, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 2, I18n.format("menu.online", new Object[0])));
+        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, p_73969_1_ + p_73969_2_, I18n.format("menu.singleplayer", new Object[0])));
+        this.buttonList.add(new GuiButton(2, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 2, I18n.format("menu.multiplayer", new Object[0])));
+        //this.buttonList.add(this.realmsButton = new GuiButton(14, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 2, I18n.format("menu.online", new Object[0])));
     }
 
     /**
@@ -511,11 +516,20 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
         int i = 274;
         int j = this.width / 2 - i / 2;
         int k = 30;
+        /*
         this.drawGradientRect(0, 0, this.width, this.height, -2130706433, 16777215);
         this.drawGradientRect(0, 0, this.width, this.height, 0, Integer.MIN_VALUE);
         this.mc.getTextureManager().bindTexture(minecraftTitleTextures);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        */
+        
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        this.mc.getTextureManager().bindTexture(logo);
+        this.drawModalRectWithCustomSizedTexture(width / 2 - 64, height / 4 - 54, 0, 0, 128, 128, 128, 128);
 
+
+        /*
         if ((double)this.updateCounter < 1.0E-4D)
         {
             this.drawTexturedModalRect(j + 0, k + 0, 0, 0, 99, 44);
@@ -529,6 +543,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
             this.drawTexturedModalRect(j + 0, k + 0, 0, 0, 155, 44);
             this.drawTexturedModalRect(j + 155, k + 0, 0, 45, 155, 44);
         }
+        */
 
         GlStateManager.pushMatrix();
         GlStateManager.translate((float)(this.width / 2 + 90), 70.0F, 0.0F);
@@ -538,6 +553,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
         GlStateManager.scale(f, f, f);
         this.drawCenteredString(this.fontRendererObj, this.splashText, 0, -8, -256);
         GlStateManager.popMatrix();
+        /*
         String s = "Minecraft 1.8.8";
 
         if (this.mc.isDemo())
@@ -548,7 +564,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
         this.drawString(this.fontRendererObj, s, 2, this.height - 10, -1);
         String s1 = "Copyright Mojang AB. Do not distribute!";
         this.drawString(this.fontRendererObj, s1, this.width - this.fontRendererObj.getStringWidth(s1) - 2, this.height - 10, -1);
-
+        */
         if (this.openGLWarning1 != null && this.openGLWarning1.length() > 0)
         {
             drawRect(this.field_92022_t - 2, this.field_92021_u - 2, this.field_92020_v + 2, this.field_92019_w - 1, 1428160512);
