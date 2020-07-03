@@ -1,6 +1,9 @@
 package net.minecraft.client.gui;
 
 import java.io.IOException;
+
+import com.nakory.gui.GuiClientOptions;
+
 import net.minecraft.client.gui.achievement.GuiAchievements;
 import net.minecraft.client.gui.achievement.GuiStats;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -23,6 +26,7 @@ public class GuiIngameMenu extends GuiScreen
         int i = -16;
         int j = 98;
         this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height / 4 + 120 + i, I18n.format("menu.returnToMenu", new Object[0])));
+        this.buttonList.add(new GuiButton(8, this.width / 2 - 100, this.height / 4 + 48 + 24 + i, "Nakory Client Options"));
 
         if (!this.mc.isIntegratedServerRunning())
         {
@@ -87,9 +91,11 @@ public class GuiIngameMenu extends GuiScreen
             case 6:
                 this.mc.displayGuiScreen(new GuiStats(this, this.mc.thePlayer.getStatFileWriter()));
                 break;
-
             case 7:
                 this.mc.displayGuiScreen(new GuiShareToLan(this));
+                break;
+            case 8:
+            	this.mc.displayGuiScreen(new GuiClientOptions());
         }
     }
 
