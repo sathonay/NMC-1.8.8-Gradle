@@ -121,9 +121,9 @@ public enum ModelRotation implements IModelState, ITransformation
         return (Optional)Reflector.call(Reflector.ForgeHooksClient_applyTransform, new Object[] {this.getMatrix(), p_apply_1_});
     }
 
-    public net.minecraft.util.Matrix4f getMatrix()
+    public javax.vecmath.Matrix4f getMatrix()
     {
-        return Reflector.ForgeHooksClient_getMatrix.exists() ? (net.minecraft.util.Matrix4f)Reflector.call(Reflector.ForgeHooksClient_getMatrix, new Object[] {this}): new net.minecraft.util.Matrix4f();
+        return Reflector.ForgeHooksClient_getMatrix.exists() ? (javax.vecmath.Matrix4f)Reflector.call(Reflector.ForgeHooksClient_getMatrix, new Object[] {this}): new javax.vecmath.Matrix4f();
     }
 
     public EnumFacing rotate(EnumFacing p_rotate_1_)
