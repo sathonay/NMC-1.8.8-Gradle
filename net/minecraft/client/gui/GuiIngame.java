@@ -727,7 +727,9 @@ public class GuiIngame extends Gui
                 }
 
                 this.drawTexturedModalRect(l3, i4, 16 + b0 * 9, 9 * b1, 9, 9);
-
+                
+                // NMC-1.8 - Remove flashing hearts
+                /*
                 if (flag)
                 {
                     if (j5 * 2 + 1 < j)
@@ -740,6 +742,7 @@ public class GuiIngame extends Gui
                         this.drawTexturedModalRect(l3, i4, k5 + 63, 9 * b1, 9, 9);
                     }
                 }
+                */
 
                 if (f2 <= 0.0F)
                 {
