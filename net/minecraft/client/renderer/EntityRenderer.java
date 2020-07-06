@@ -464,7 +464,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
             this.mc.objectMouseOver = entity.rayTrace(d0, partialTicks);
             double d1 = d0;
             Vec3 vec3 = entity.getPositionEyes(partialTicks);
-            boolean flag = false;
+            //boolean flag = false;
             boolean flag1 = true;
 
             if (this.mc.playerController.extendedReach())
@@ -476,10 +476,12 @@ public class EntityRenderer implements IResourceManagerReloadListener
             {
                 if (d0 > 3.0D)
                 {
-                    flag = true;
+                    //flag = true;
+                	d1 = 3.0;
                 }
 
-                d0 = d0;
+                //d0 = d0;
+                d0 = d1;
             }
 
             if (this.mc.objectMouseOver != null)
@@ -487,6 +489,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
                 d1 = this.mc.objectMouseOver.hitVec.distanceTo(vec3);
             }
 
+            
             Vec3 vec31 = entity.getLook(partialTicks);
             Vec3 vec32 = vec3.addVector(vec31.xCoord * d0, vec31.yCoord * d0, vec31.zCoord * d0);
             this.pointedEntity = null;
@@ -542,11 +545,13 @@ public class EntityRenderer implements IResourceManagerReloadListener
                 }
             }
 
+            /*
             if (this.pointedEntity != null && flag && vec3.distanceTo(vec33) > 3.0D)
             {
                 this.pointedEntity = null;
                 this.mc.objectMouseOver = new MovingObjectPosition(MovingObjectPosition.MovingObjectType.MISS, vec33, (EnumFacing)null, new BlockPos(vec33));
             }
+            */
 
             if (this.pointedEntity != null && (d2 < d1 || this.mc.objectMouseOver == null))
             {
