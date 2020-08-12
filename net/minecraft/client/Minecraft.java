@@ -3087,8 +3087,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
     public void dispatchKeypresses()
     {
-        int i = Keyboard.getEventKey() == 0 ? Keyboard.getEventCharacter() : Keyboard.getEventKey();
-
+        //int i = Keyboard.getEventKey() == 0 ? Keyboard.getEventCharacter() : Keyboard.getEventKey();
+        
+        // NMC-1.8.8 - Fix shitty thing (check)
+        int i = Keyboard.getEventKey();
         if (i != 0 && !Keyboard.isRepeatEvent())
         {
             if (!(this.currentScreen instanceof GuiControls) || ((GuiControls)this.currentScreen).time <= getSystemTime() - 20L)
