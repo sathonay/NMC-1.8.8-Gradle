@@ -94,11 +94,8 @@ public abstract class Render<T extends Entity>
         {
             return false;
         }
-        else
-        {
-            this.bindTexture(resourcelocation);
-            return true;
-        }
+        this.bindTexture(resourcelocation);
+        return true;
     }
 
     public void bindTexture(ResourceLocation location)
@@ -237,15 +234,9 @@ public abstract class Render<T extends Entity>
         {
             Tessellator tessellator = Tessellator.getInstance();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-            double d0 = ((double)p_180549_9_ - (p_180549_4_ - ((double)pos.getY() + p_180549_13_)) / 2.0D) * 0.5D * (double)this.getWorldFromRenderManager().getLightBrightness(pos);
+            double d0 = ((double)Math.min(p_180549_9_ - (p_180549_4_ - ((double)pos.getY() + p_180549_13_)) / 2.0D) * 0.5D * (double)this.getWorldFromRenderManager().getLightBrightness(pos), 1.0D);
 
-            if (d0 >= 0.0D)
-            {
-                if (d0 > 1.0D)
-                {
-                    d0 = 1.0D;
-                }
-
+            if (d0 >= 0.0D) {
                 double d1 = (double)pos.getX() + blockIn.getBlockBoundsMinX() + p_180549_11_;
                 double d2 = (double)pos.getX() + blockIn.getBlockBoundsMaxX() + p_180549_11_;
                 double d3 = (double)pos.getY() + blockIn.getBlockBoundsMinY() + p_180549_13_ + 0.015625D;
