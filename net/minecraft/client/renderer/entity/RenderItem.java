@@ -83,16 +83,7 @@ public class RenderItem implements IResourceManagerReloadListener
     {
         this.textureManager = textureManager;
         this.modelManager = modelManager;
-
-        if (Reflector.ItemModelMesherForge_Constructor.exists())
-        {
-            this.itemModelMesher = (ItemModelMesher)Reflector.newInstance(Reflector.ItemModelMesherForge_Constructor, new Object[] {modelManager});
-        }
-        else
-        {
-            this.itemModelMesher = new ItemModelMesher(modelManager);
-        }
-
+        this.itemModelMesher = (Reflector.ItemModelMesherForge_Constructor.exists() ? (ItemModelMesher)Reflector.newInstance(Reflector.ItemModelMesherForge_Constructor, new Object[] {modelManager}) : new ItemModelMesher(modelManager));
         this.registerItems();
     }
 
