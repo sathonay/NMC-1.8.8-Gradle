@@ -20,20 +20,9 @@ public class EntityDropParticleFX extends EntityFX
     {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
         this.motionX = this.motionY = this.motionZ = 0.0D;
-
-        if (p_i1203_8_ == Material.water)
-        {
-            this.particleRed = 0.0F;
-            this.particleGreen = 0.0F;
-            this.particleBlue = 1.0F;
-        }
-        else
-        {
-            this.particleRed = 1.0F;
-            this.particleGreen = 0.0F;
-            this.particleBlue = 0.0F;
-        }
-
+        this.particleRed = (p_i1203_8_ == Material.water ? 0.0F : 1.0F);
+        this.particleGreen = 0.0F;
+        this.particleBlue = (p_i1203_8_ == Material.water ? 1.0F : 0.0F);
         this.setParticleTextureIndex(113);
         this.setSize(0.01F, 0.01F);
         this.particleGravity = 0.06F;
