@@ -169,7 +169,7 @@ public class EffectRenderer
             this.updateEffectLayer(i);
         }
 
-        ArrayList arraylist = Lists.newArrayList();
+        List list = Lists.newArrayList();
 
         for (Object entityparticleemitter0 : this.particleEmitters)
         {
@@ -178,11 +178,11 @@ public class EffectRenderer
 
             if (entityparticleemitter.isDead)
             {
-                arraylist.add(entityparticleemitter);
+                list.add(entityparticleemitter);
             }
         }
 
-        this.particleEmitters.removeAll(arraylist);
+        this.particleEmitters.removeAll(list);
     }
 
     private void updateEffectLayer(int p_178922_1_)
@@ -195,7 +195,7 @@ public class EffectRenderer
 
     private void updateEffectAlphaLayer(List p_178925_1_)
     {
-        ArrayList arraylist = Lists.newArrayList();
+        List list = Lists.newArrayList();
 
         for (int i = 0; i < p_178925_1_.size(); ++i)
         {
@@ -204,11 +204,11 @@ public class EffectRenderer
 
             if (entityfx.isDead)
             {
-                arraylist.add(entityfx);
+                list.add(entityfx);
             }
         }
 
-        p_178925_1_.removeAll(arraylist);
+        p_178925_1_.removeAll(list);
     }
 
     private void tickParticle(final EntityFX p_178923_1_)
