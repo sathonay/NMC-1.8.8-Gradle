@@ -29,10 +29,8 @@ public class GuardianSound extends MovingSound
             float f = this.guardian.func_175477_p(0.0F);
             this.volume = 0.0F + 1.0F * f * f;
             this.pitch = 0.7F + 0.5F * f;
+            return;
         }
-        else
-        {
-            this.donePlaying = true;
-        }
+        this.donePlaying = true;
     }
 }
