@@ -1,5 +1,7 @@
 package net.minecraft.client.gui;
 
+import java.awt.Color;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.settings.GameSettings;
@@ -56,10 +58,11 @@ public class GuiOptionSlider extends GuiButton
                 this.displayString = mc.gameSettings.getKeyBinding(this.options);
             }
 
-            mc.getTextureManager().bindTexture(buttonTextures);
+            /*mc.getTextureManager().bindTexture(buttonTextures);*/
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-            this.drawTexturedModalRect(this.xPosition + (int)(this.sliderValue * (float)(this.width - 8)), this.yPosition, 0, 66, 4, 20);
-            this.drawTexturedModalRect(this.xPosition + (int)(this.sliderValue * (float)(this.width - 8)) + 4, this.yPosition, 196, 66, 4, 20);
+            this.drawRect(this.xPosition + (int)(this.sliderValue * (float)(this.width - 6)), this.yPosition, this.xPosition + (int)(this.sliderValue * (float)(this.width - 6)) + 6, this.yPosition + 20, new Color(189, 195, 199).getRGB());
+            /*this.drawTexturedModalRect(this.xPosition + (int)(this.sliderValue * (float)(this.width - 8)), this.yPosition, 0, 66, 4, 20);
+            this.drawTexturedModalRect(this.xPosition + (int)(this.sliderValue * (float)(this.width - 8)) + 4, this.yPosition, 196, 66, 4, 20);*/
         }
     }
 

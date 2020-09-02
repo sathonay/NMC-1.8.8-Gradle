@@ -1,5 +1,7 @@
 package net.minecraft.client.gui;
 
+import java.awt.Color;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
@@ -72,12 +74,14 @@ public class GuiButton extends Gui
         return i;
     }
 
+    protected int animation = 0;
+    
     /**
      * Draws this button to the screen.
      */
     public void drawButton(Minecraft mc, int mouseX, int mouseY)
     {
-        if (this.visible)
+        /*if (this.visible)
         {
             FontRenderer fontrenderer = mc.fontRendererObj;
             mc.getTextureManager().bindTexture(buttonTextures);
@@ -103,6 +107,64 @@ public class GuiButton extends Gui
 
             this.drawCenteredString(fontrenderer, this.displayString, this.xPosition + this.width / 2, this.yPosition + (this.height - 8) / 2, j);
         }
+        */
+        if (this.visible) {
+        	GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        	GlStateManager.enableBlend();
+            GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+            GlStateManager.blendFunc(770, 771);
+			this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
+	        /*
+			int fontColor = new Color(178, 190, 195).getRGB();
+			int color = new Color(45, 52, 54).getRGB();
+			if (this.enabled) {
+				 if (this.hovered) {
+					 if (animation < 4) {
+						 animation++;
+					 }
+					 fontColor = new Color(255, 255, 255).getRGB();
+					 color = new Color(52, 73, 94).getRGB();
+				 } else {
+					 if (animation > 0) {
+						 animation--;
+					 }
+					 fontColor = new Color(255, 255, 255).getRGB();
+					 color = new Color(44, 62, 80).getRGB();
+				 }
+			}
+			*/
+			int fontColor = new Color(255, 255, 255).getRGB();
+			int color = new Color(44, 62, 80, 153).getRGB();
+			if (!this.enabled) {
+				fontColor = new Color(178, 190, 195).getRGB();
+				color = new Color(45, 52, 54, 153).getRGB();
+			} else if (this.hovered) {
+				if (!(this instanceof GuiOptionSlider || this instanceof GuiScreenOptionsSounds.Button) && animation < 4) {
+					 animation++;
+				 }
+				 color = new Color(52, 73, 94, 153).getRGB();
+			} else {
+				if (!(this instanceof GuiOptionSlider || this instanceof GuiScreenOptionsSounds.Button) && animation > 0) {
+					 animation--;
+				 }
+			}
+			/*
+	        if (this.hovered) {
+	        	if (animation < 4) {
+	        		animation++;
+	        	}
+	        	this.color = new Color(52, 73, 94).getRGB();
+	        } else {
+	        	if (animation > 0) {
+	        		animation--;
+	        	}
+	        	this.color = new Color(44, 62, 80).getRGB();
+	        }
+	        */
+	        this.drawRect(this.xPosition + animation, this.yPosition, this.xPosition + this.width - animation, this.yPosition + this.height, color);
+	        this.mouseDragged(mc, mouseX, mouseY);
+	        this.drawCenteredString(mc.fontRendererObj, this.displayString, this.xPosition + (this.width / 2), this.yPosition + (this.height - 8) / 2, fontColor);
+		}
     }
 
     /**
