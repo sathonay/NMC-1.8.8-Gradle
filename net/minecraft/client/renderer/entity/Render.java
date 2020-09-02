@@ -234,7 +234,7 @@ public abstract class Render<T extends Entity>
         {
             Tessellator tessellator = Tessellator.getInstance();
             WorldRenderer worldrenderer = tessellator.getWorldRenderer();
-            double d0 = ((double)Math.min(p_180549_9_ - (p_180549_4_ - ((double)pos.getY() + p_180549_13_)) / 2.0D) * 0.5D * (double)this.getWorldFromRenderManager().getLightBrightness(pos), 1.0D);
+            double d0 = (double)Math.min((p_180549_9_ - (p_180549_4_ - ((double)pos.getY() + p_180549_13_)) / 2.0D) * 0.5D * (double)this.getWorldFromRenderManager().getLightBrightness(pos), 1.0D);
 
             if (d0 >= 0.0D) {
                 double d1 = (double)pos.getX() + blockIn.getBlockBoundsMinX() + p_180549_11_;
