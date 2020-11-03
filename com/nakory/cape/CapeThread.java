@@ -83,7 +83,7 @@ public class CapeThread extends Thread {
 	public void run() {
 		super.run();
 		
-		String ofCapeUrl = "http://nakory.online/capes/" + username + ".png";
+		String ofCapeUrl = "http://nakory.com/capes/" + username + ".png";
 	    try {
 	       	if(!doesURLExist(ofCapeUrl)) ofCapeUrl = "http://s.optifine.net/capes/" + username + ".png";
 		} catch (IOException e) {
@@ -103,7 +103,6 @@ public class CapeThread extends Thread {
 	    }
 	    
 	    IImageBuffer iib = new CapeImageBuffer(player, resourceLocation);
-	        
 	    ThreadDownloadImageData textureCape = new ThreadDownloadImageData((File)null, ofCapeUrl, (ResourceLocation)null, iib);
 	    textureCape.pipeline = true;
 	    textureManager.loadTexture(resourceLocation, textureCape);
