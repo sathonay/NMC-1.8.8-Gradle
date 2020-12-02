@@ -310,7 +310,7 @@ public class FontRenderer implements IResourceManagerReloadListener
     {
         if (unicodePageLocations[p_111271_1_] == null)
         {
-            unicodePageLocations[p_111271_1_] = new ResourceLocation(String.format("textures/font/unicode_page_%02x.png", new Object[] {Integer.valueOf(p_111271_1_)}));
+            unicodePageLocations[p_111271_1_] = new ResourceLocation(String.format("nakory/font/unicode_page_%02x.png", new Object[] {Integer.valueOf(p_111271_1_)}));
             unicodePageLocations[p_111271_1_] = FontUtils.getHdFontLocation(unicodePageLocations[p_111271_1_]);
         }
 
