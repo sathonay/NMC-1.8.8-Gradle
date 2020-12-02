@@ -1,6 +1,8 @@
 package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
+
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -72,7 +74,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
     private static final ResourceLocation logo = new ResourceLocation("nakory/x512.png");
 
     /** An array of all the paths to the panorama pictures. */
-    private static final ResourceLocation[] titlePanoramaPaths = new ResourceLocation[] {new ResourceLocation("textures/gui/title/background/panorama_0.png"), new ResourceLocation("textures/gui/title/background/panorama_1.png"), new ResourceLocation("textures/gui/title/background/panorama_2.png"), new ResourceLocation("textures/gui/title/background/panorama_3.png"), new ResourceLocation("textures/gui/title/background/panorama_4.png"), new ResourceLocation("textures/gui/title/background/panorama_5.png")};
+    private static final ResourceLocation[] titlePanoramaPaths = new ResourceLocation[] {new ResourceLocation("nakory/title/background/panorama_0.png"), new ResourceLocation("nakory/title/background/panorama_1.png"), new ResourceLocation("nakory/title/background/panorama_2.png"), new ResourceLocation("nakory/title/background/panorama_3.png"), new ResourceLocation("nakory/title/background/panorama_4.png"), new ResourceLocation("nakory/title/background/panorama_5.png")};
     public static final String field_96138_a = "Please click " + EnumChatFormatting.UNDERLINE + "here" + EnumChatFormatting.RESET + " for more information.";
     private int field_92024_r;
     private int field_92023_s;
@@ -81,6 +83,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
     private int field_92020_v;
     private int field_92019_w;
     private ResourceLocation backgroundTexture;
+    private int stringsColor = new Color(243, 243, 243, 125).getRGB(); // NMC Menu strings color
 
     /** Minecraft Realms button. */
     private GuiButton realmsButton;
@@ -560,9 +563,9 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
             s = s + " Demo";
         }
 
-        this.drawString(this.fontRendererObj, s, 2, this.height - 10, -1);
+        this.drawString(this.fontRendererObj, s, 2, this.height - 10, stringsColor);
         String s1 = "Copyright Mojang AB. Do not distribute!";
-        this.drawString(this.fontRendererObj, s1, this.width - this.fontRendererObj.getStringWidth(s1) - 2, this.height - 10, -1);
+        this.drawString(this.fontRendererObj, s1, this.width - this.fontRendererObj.getStringWidth(s1) - 2, this.height - 10, stringsColor);
         if (this.openGLWarning1 != null && this.openGLWarning1.length() > 0)
         {
             drawRect(this.field_92022_t - 2, this.field_92021_u - 2, this.field_92020_v + 2, this.field_92019_w - 1, 1428160512);
