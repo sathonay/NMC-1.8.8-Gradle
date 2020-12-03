@@ -173,6 +173,8 @@ public class ModelBiped extends ModelBase
                 // NMC-1.8.8 - Remove the Y hand move when blocking with a sword
                 //this.bipedRightArm.rotateAngleY = -0.5235988F;
         }
+        
+        // Nazi style this.bipedRightArm.rotateAngleX = this.bipedRightArm.rotateAngleX * 0.5F - ((float)Math.PI / 10F) * (float)7;
 
         this.bipedLeftArm.rotateAngleY = 0.0F;
 

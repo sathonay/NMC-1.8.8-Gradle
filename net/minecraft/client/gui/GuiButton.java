@@ -135,18 +135,16 @@ public class GuiButton extends Gui
 			*/
 			int fontColor = new Color(255, 255, 255).getRGB();
 			int color = new Color(44, 62, 80, 153).getRGB();
+			//int color = new Color(232, 67, 147, 153).getRGB();
 			if (!this.enabled) {
 				fontColor = new Color(178, 190, 195).getRGB();
 				color = new Color(45, 52, 54, 153).getRGB();
 			} else if (this.hovered) {
-				if (!(this instanceof GuiOptionSlider || this instanceof GuiScreenOptionsSounds.Button) && animation < 4) {
-					 animation++;
-				 }
+				if (!(this instanceof GuiOptionSlider || this instanceof GuiScreenOptionsSounds.Button) && animation < 4) animation++;
 				 color = new Color(52, 73, 94, 153).getRGB();
+				//color = new Color(253, 121, 168, 153).getRGB();
 			} else {
-				if (!(this instanceof GuiOptionSlider || this instanceof GuiScreenOptionsSounds.Button) && animation > 0) {
-					 animation--;
-				 }
+				if (!(this instanceof GuiOptionSlider || this instanceof GuiScreenOptionsSounds.Button) && animation > 0) animation--;
 			}
 			/*
 	        if (this.hovered) {
@@ -166,7 +164,13 @@ public class GuiButton extends Gui
 	        this.drawCenteredString(mc.fontRendererObj, this.displayString, this.xPosition + (this.width / 2), this.yPosition + (this.height - 8) / 2, fontColor);
 		}
     }
-
+    
+    /*
+    private int ranbow() {
+    	return Color.HSBtoRGB((System.currentTimeMillis() % 7500L) / 7500F, 0.8f, 0.8f);
+    }
+    */
+    
     /**
      * Fired when the mouse button is dragged. Equivalent of MouseListener.mouseDragged(MouseEvent e).
      */

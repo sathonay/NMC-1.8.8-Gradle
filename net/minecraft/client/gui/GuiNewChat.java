@@ -1,6 +1,8 @@
 package net.minecraft.client.gui;
 
 import com.google.common.collect.Lists;
+import com.nakory.gui.GuiClientOptions;
+
 import java.util.Iterator;
 import java.util.List;
 import net.minecraft.client.Minecraft;
@@ -79,7 +81,8 @@ public class GuiNewChat extends Gui
                             {
                                 int i2 = 0;
                                 int j2 = -i1 * 9;
-                                if (this.mc.currentScreen instanceof GuiChat) drawRect(i2, j2 - 9, i2 + l + 4, j2, l1 / 2 << 24);
+                                if (GuiClientOptions.renderChatBackground && !(this.mc.currentScreen instanceof GuiChat) 
+                                		|| GuiClientOptions.renderChatBackgroundToggle && this.mc.currentScreen instanceof GuiChat) drawRect(i2, j2 - 9, i2 + l + 4, j2, l1 / 2 << 24);
                                 String s = chatline.getChatComponent().getFormattedText();
                                 GlStateManager.enableBlend();
                                 this.mc.fontRendererObj.drawStringWithShadow(s, (float)i2, (float)(j2 - 8), 16777215 + (l1 << 24));

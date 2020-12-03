@@ -83,14 +83,14 @@ public class CapeThread extends Thread {
 	public void run() {
 		super.run();
 		
-		String ofCapeUrl = "http://nakory.com/capes/" + username + ".png";
+		String capeUrl = "http://nakory.com/capes/" + username + ".png";
 	    try {
-	       	if(!doesURLExist(ofCapeUrl)) ofCapeUrl = "http://s.optifine.net/capes/" + username + ".png";
+	       	if(!doesURLExist(capeUrl)) capeUrl = "http://s.optifine.net/capes/" + username + ".png";
 		} catch (IOException e) {
-	           ofCapeUrl = "http://s.optifine.net/capes/" + username + ".png";
+			capeUrl = "http://s.optifine.net/capes/" + username + ".png";
 		}
 	        
-        String mptHash = FilenameUtils.getBaseName(ofCapeUrl);
+        String mptHash = FilenameUtils.getBaseName(capeUrl);
 	    final ResourceLocation resourceLocation = new ResourceLocation("capeof/" + mptHash);
 	    TextureManager textureManager = Minecraft.getMinecraft().getTextureManager();
 	    ITextureObject tex = textureManager.getTexture(resourceLocation);
@@ -103,7 +103,7 @@ public class CapeThread extends Thread {
 	    }
 	    
 	    IImageBuffer iib = new CapeImageBuffer(player, resourceLocation);
-	    ThreadDownloadImageData textureCape = new ThreadDownloadImageData((File)null, ofCapeUrl, (ResourceLocation)null, iib);
+	    ThreadDownloadImageData textureCape = new ThreadDownloadImageData((File)null, capeUrl, (ResourceLocation)null, iib);
 	    textureCape.pipeline = true;
 	    textureManager.loadTexture(resourceLocation, textureCape);
         this.stop();

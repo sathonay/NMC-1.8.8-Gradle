@@ -50,12 +50,12 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
         this.shadowSize = shadowSizeIn;
     }
 
-    public <V extends EntityLivingBase, U extends LayerRenderer<V>> boolean addLayer(U layer)
+    public <V extends EntityLivingBase, U extends LayerRenderer<V>> boolean addLayer(LayerRenderer layer)
     {
         return this.layerRenderers.add((LayerRenderer<T>)layer);
     }
 
-    protected <V extends EntityLivingBase, U extends LayerRenderer<V>> boolean removeLayer(U layer)
+    protected <V extends EntityLivingBase, U extends LayerRenderer<V>> boolean removeLayer(LayerRenderer layer)
     {
         return this.layerRenderers.remove(layer);
     }

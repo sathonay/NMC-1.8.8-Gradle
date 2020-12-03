@@ -270,6 +270,8 @@ public class GameSettings
     private static final String[] KEYS_DYNAMIC_LIGHTS = new String[] {"options.off", "options.graphics.fast", "options.graphics.fancy"};
     public KeyBinding ofKeyBindZoom;
     private File optionsFileOF;
+    
+    public KeyBinding clientHUDProperty = new KeyBinding("Hud properties", Keyboard.KEY_RSHIFT, "Nakory Client");
 
     public GameSettings(Minecraft mcIn, File p_i46326_2_)
     {
@@ -289,6 +291,7 @@ public class GameSettings
         this.renderDistanceChunks = 8;
         this.loadOptions();
         Config.initGameSettings(this);
+        addNakoryClientKeyBinds();
     }
 
     public GameSettings()
@@ -299,6 +302,11 @@ public class GameSettings
         this.fovSetting = 70.0F;
         this.language = "en_US";
         this.forceUnicodeFont = false;
+        addNakoryClientKeyBinds();
+    }
+    
+    private void addNakoryClientKeyBinds() {
+    	this.keyBindings =  ArrayUtils.add(this.keyBindings, clientHUDProperty);
     }
 
     /**

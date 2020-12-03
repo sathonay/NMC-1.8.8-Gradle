@@ -13,6 +13,10 @@ import com.mojang.authlib.minecraft.MinecraftSessionService;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
+import com.nakory.NakoryClient;
+import com.nakory.event.EventManager;
+import com.nakory.event.implementations.ClientTickEvent;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -464,6 +468,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
      */
     private void startGame() throws LWJGLException, IOException
     {
+    	NakoryClient.getInstance().init();
         this.gameSettings = new GameSettings(this, this.mcDataDir);
         this.defaultResourcePacks.add(this.mcDefaultResourcePack);
         this.startTimerHackThread();
@@ -1028,6 +1033,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     {
         try
         {
+        	NakoryClient.getInstance().shutdown();
             this.stream.shutdownStream();
             logger.info("Stopping!");
 
@@ -2246,6 +2252,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage
             this.mcProfiler.endStartSection("pendingConnection");
             this.myNetworkManager.processReceivedPackets();
         }
+        
+        EventManager.call(new ClientTickEvent());
 
         this.mcProfiler.endSection();
         this.systemTime = getSystemTime();

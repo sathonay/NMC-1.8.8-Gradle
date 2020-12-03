@@ -2,6 +2,9 @@ package net.minecraft.client.renderer;
 
 import com.google.common.base.Predicates;
 import com.google.gson.JsonSyntaxException;
+import com.nakory.event.EventManager;
+import com.nakory.event.implementations.RenderEvent;
+
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.FloatBuffer;
@@ -1419,6 +1422,8 @@ public class EntityRenderer implements IResourceManagerReloadListener
                 }
             }
         }
+        
+        EventManager.call(new RenderEvent());
 
         this.frameFinish();
         this.waitForServerThread();
