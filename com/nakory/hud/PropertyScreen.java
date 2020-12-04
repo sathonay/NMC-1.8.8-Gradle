@@ -1,5 +1,6 @@
 package com.nakory.hud;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -49,6 +50,9 @@ public class PropertyScreen extends GuiScreen {
 	
 	private int xDis, yDis;
 
+	
+	private float zBackup = 0;
+	
 	@Override
 	public void drawScreen(int x, int y, float partialTicks) {
 		super.drawDefaultBackground();
@@ -56,9 +60,19 @@ public class PropertyScreen extends GuiScreen {
 		float zBackup = this.zLevel;
 		this.zLevel = 200;	
 
-		renderers.forEach((renderer, position) -> renderer.renderDummy(position));
+		renderers.forEach((renderer, position) -> {
+			renderer.renderDummy(position);
+			this.drawHollowRect(position.getAbsoluteX(), position.getAbsoluteY(), renderer.getWidth(), renderer.getHeight(), renderer.isEnabled() ? Color.GREEN.getRGB() : Color.RED.getRGB());
+			});
 
 		this.zLevel = zBackup;
+	}
+	
+	private void drawHollowRect(int x, int y, int w, int h, int color) {
+		this.drawHorizontalLine(x, x + w, y, color);
+		this.drawHorizontalLine(x, x + w, y + h, color);
+		this.drawVerticalLine(x, y + h, y, color);
+		this.drawVerticalLine(x + w, y + h, y, color);
 	}
 
 

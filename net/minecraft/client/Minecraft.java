@@ -16,6 +16,7 @@ import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import com.nakory.NakoryClient;
 import com.nakory.event.EventManager;
 import com.nakory.event.implementations.ClientTickEvent;
+import com.nakory.hud.implementations.toggleSprint.ToggleSprintMovementInput;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -2402,7 +2403,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
             this.thePlayer.preparePlayerToSpawn();
             worldClientIn.spawnEntityInWorld(this.thePlayer);
-            this.thePlayer.movementInput = new MovementInputFromOptions(this.gameSettings);
+            this.thePlayer.movementInput = new ToggleSprintMovementInput(this.gameSettings);
             this.playerController.setPlayerCapabilities(this.thePlayer);
             this.renderViewEntity = this.thePlayer;
         }
@@ -2440,7 +2441,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
         this.thePlayer.setClientBrand(s);
         this.theWorld.spawnEntityInWorld(this.thePlayer);
         this.playerController.flipPlayer(this.thePlayer);
-        this.thePlayer.movementInput = new MovementInputFromOptions(this.gameSettings);
+        this.thePlayer.movementInput = new ToggleSprintMovementInput(this.gameSettings);
         this.thePlayer.setEntityId(i);
         this.playerController.setPlayerCapabilities(this.thePlayer);
         this.thePlayer.setReducedDebug(entityplayersp.hasReducedDebug());

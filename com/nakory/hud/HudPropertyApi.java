@@ -1,6 +1,9 @@
 package com.nakory.hud;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import com.google.common.collect.Sets;
@@ -9,6 +12,7 @@ import com.nakory.event.implementations.RenderEvent;
 import com.nakory.hud.util.ScreenPosition;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.Render;
 public final class HudPropertyApi {
 
 	public static HudPropertyApi newInstance(){
@@ -16,7 +20,8 @@ public final class HudPropertyApi {
 		return api;
 	}
 
-	private Set<IRenderer> registeredRenderers = Sets.newHashSet();
+	private Map<Class, IRenderer> registeredRenderers = new HashMap<>();
+	private Collection<IRenderer> renderers = registeredRenderers.values();
 	private Minecraft mc = Minecraft.getMinecraft();
 
 	private boolean renderOutlines = true;
@@ -25,7 +30,7 @@ public final class HudPropertyApi {
 
 	public void register(IRenderer... renderers){
 		for(IRenderer renderer : renderers){
-			this.registeredRenderers.add(renderer);
+			this.registeredRenderers.put(renderer.getClass(), renderer);
 		}
 	}
 
@@ -36,7 +41,7 @@ public final class HudPropertyApi {
 	}
 
 	public Collection<IRenderer> getHandlers(){
-		return Sets.newHashSet(registeredRenderers);
+		return Sets.newHashSet(renderers);
 	}
 
 	public boolean getRenderOutlines(){
@@ -54,7 +59,7 @@ public final class HudPropertyApi {
 	@EventHandler
 	public void onRender(RenderEvent event){
 		if(mc.currentScreen == null && !(mc.currentScreen instanceof PropertyScreen)){
-			registeredRenderers.forEach(this::callRenderer);
+			renderers.forEach(this::callRenderer);
 		}
 	}
 
@@ -71,5 +76,8 @@ public final class HudPropertyApi {
 
 		renderer.render(position);
 	}
-
+	
+	public <T> Optional<T> getRendererByInstance(Class<T> aClass) {
+		return (Optional<T>) Optional.ofNullable(registeredRenderers.get(aClass));
+	}
 }

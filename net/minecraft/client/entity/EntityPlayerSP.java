@@ -1,5 +1,7 @@
 package net.minecraft.client.entity;
 
+import com.nakory.hud.implementations.toggleSprint.ToggleSprintMovementInput;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -100,7 +102,7 @@ public class EntityPlayerSP extends AbstractClientPlayer
     private int positionUpdateTicks;
     private boolean hasValidHealth;
     private String clientBrand;
-    public MovementInput movementInput;
+    public ToggleSprintMovementInput movementInput;
     protected Minecraft mc;
 
     /**

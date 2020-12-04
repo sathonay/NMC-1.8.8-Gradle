@@ -20,6 +20,10 @@ public class GuiClientOptions extends GuiScreen {
 	public static boolean showRedNumberInScoreboard = true;
 	public static boolean renderChatBackground = true;
 	public static boolean renderChatBackgroundToggle = true;
+
+	public static boolean toggleSneak = true;
+	public static boolean toggleSprint = true;
+	public static boolean toggleFlyingBoost = true;
 	public static int monitorHertz = 60;
 	
 	
@@ -33,6 +37,10 @@ public class GuiClientOptions extends GuiScreen {
 
 		addButton(new GuiButton(1, 0, 20, "Chat Settings"), (button) -> {
 			this.mc.displayGuiScreen(new GuiClientOptionsChat());
+		});
+		
+		addButton(new GuiButton(2, 0, 40, "Toggle Sneak & Sprint Settings"), (button) -> {
+			this.mc.displayGuiScreen(new GuiClientOptionsToggleSneak());
 		});
 		
 		addButton(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168 + 11, I18n.format("gui.done", new Object[0])), (button) -> {
