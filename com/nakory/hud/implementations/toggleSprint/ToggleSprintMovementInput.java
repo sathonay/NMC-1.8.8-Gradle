@@ -42,7 +42,7 @@ public class ToggleSprintMovementInput extends MovementInput {
 		boolean isHoldingSprint = gameSettings.keyBindSprint.isKeyDown();
 		
 		if (isFlying) {
-			if (originalFlySpeed > 0.0F) displayText += "[Flying (" + /*df.format(*/boostedFlySpeed / originalFlySpeed/*)*/ + "x Boost)]  ";
+			if (boostedFlySpeed > 0.0F) displayText += "[Flying (" + /*df.format(*/boostedFlySpeed / originalFlySpeed/*)*/ + "x Boost)]  ";
 			else displayText = "[Flying]  ";
 		}
 		
@@ -135,13 +135,13 @@ public class ToggleSprintMovementInput extends MovementInput {
         
         if (GuiClientOptions.toggleFlyingBoost && renderer.isPresent() && renderer.get().isEnabled() && player.capabilities.isFlying && (Minecraft.getMinecraft().getRenderViewEntity() == player) && sprint) {
         	ToggleSprintRenderer mod = renderer.get();
-        	if (originalFlySpeed < 0.0F || this.player.capabilities.getFlySpeed() != boostedFlySpeed) originalFlySpeed = this.player.capabilities.getFlySpeed();
+        	if (boostedFlySpeed < 0.0F || this.player.capabilities.getFlySpeed() != boostedFlySpeed) originalFlySpeed = this.player.capabilities.getFlySpeed();
         	boostedFlySpeed = originalFlySpeed * mod.flyBoostFactor;
         	player.capabilities.setFlySpeed(boostedFlySpeed);
         	if (sneak) player.motionY -= 0.15D * mod.flyBoostFactor - 1.0F;
         } else {
-        	if (player.capabilities.getFlySpeed() == boostedFlySpeed) this.player.capabilities.setPlayerWalkSpeed(originalFlySpeed);
-        	originalFlySpeed = -1.0F;
+        	if (player.capabilities.getFlySpeed() == boostedFlySpeed) this.player.capabilities.setFlySpeed(originalFlySpeed);
+        	boostedFlySpeed = -1.0F;
         }
 	}
 }

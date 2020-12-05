@@ -91,7 +91,6 @@ public class PropertyScreen extends GuiScreen {
 		loadMouseOver(x, y);
 		
 		selectedRenderer.ifPresent(renderer -> {
-			System.out.println(button);
 			if (button == 0) {
 				ScreenPosition position = renderers.get(renderer);
 				xDis = x - position.getAbsoluteX();
