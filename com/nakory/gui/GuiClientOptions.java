@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import com.nakory.NakoryClient;
+
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiIngameMenu;
@@ -15,17 +17,8 @@ import net.minecraft.util.EnumChatFormatting;
 import optifine.Lang;
 
 public class GuiClientOptions extends GuiScreen {
-
 	
-	public static boolean showRedNumberInScoreboard = true;
-	public static boolean renderChatBackground = true;
-	public static boolean renderChatBackgroundToggle = true;
-
-	public static boolean toggleSneak = true;
-	public static boolean toggleSprint = true;
-	public static boolean toggleFlyingBoost = true;
-	public static int monitorHertz = 60;
-	
+	protected NakorySettings settings = NakoryClient.getInstance().getSettings();
 	
 	private final Map<Integer, Consumer<GuiButton>> actions = new HashMap<>();
 	

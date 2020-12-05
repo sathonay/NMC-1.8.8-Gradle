@@ -1,6 +1,6 @@
 package net.minecraft.client.entity;
 
-import com.nakory.hud.implementations.toggleSprint.ToggleSprintMovementInput;
+import com.nakory.modules.implementations.togglesprint.ToggleSprintMovementInput;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;

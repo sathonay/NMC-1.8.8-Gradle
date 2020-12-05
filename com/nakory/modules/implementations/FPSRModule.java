@@ -1,30 +1,25 @@
-package com.nakory.hud.implementations;
+package com.nakory.modules.implementations;
 
 import com.nakory.hud.IRenderer;
 import com.nakory.hud.util.ScreenPosition;
+import com.nakory.modules.RenderableModule;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 
-public class FPSRenderer implements IRenderer{
+public class FPSRModule extends RenderableModule {
 
 	private String text = "1000 fps";
 	private FontRenderer fontRenderer;
 	
-	public FPSRenderer() {
+	public FPSRModule() {
 		fontRenderer = Minecraft.getMinecraft().fontRendererObj;
 	}
 	
-	ScreenPosition pos;
-	
 	@Override
-	public void save(ScreenPosition position) {
-		pos = position;
-	}
-
-	@Override
-	public ScreenPosition load() {
-		return pos;
+	public ScreenPosition getDefaultPosition() {
+		// TODO Auto-generated method stub
+		return ScreenPosition.fromRelativePosition(0.50, 0);
 	}
 
 	@Override

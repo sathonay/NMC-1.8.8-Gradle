@@ -1,12 +1,13 @@
-package com.nakory.hud.implementations.toggleSprint;
+package com.nakory.modules.implementations.togglesprint;
 
 import com.nakory.hud.IRenderer;
 import com.nakory.hud.util.ScreenPosition;
+import com.nakory.modules.RenderableModule;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 
-public class ToggleSprintRenderer implements IRenderer{
+public class ToggleSprintModule extends RenderableModule {
 
 	private String text = "[Sprinting (Key Toggled))]";
 	private FontRenderer fontRenderer;
@@ -15,22 +16,15 @@ public class ToggleSprintRenderer implements IRenderer{
 	public float flyBoostFactor = 4;
 	public int keyHoldTicks = 7;
 	
-	public ToggleSprintRenderer() {
+	public ToggleSprintModule() {
 		fontRenderer = Minecraft.getMinecraft().fontRendererObj;
 	}
 	
-	ScreenPosition pos;
+	@Override
+	public ScreenPosition getDefaultPosition() {
+		return ScreenPosition.fromRelativePosition(0.25, 0);
+	}
 	
-	@Override
-	public void save(ScreenPosition position) {
-		pos = position;
-	}
-
-	@Override
-	public ScreenPosition load() {
-		return pos;
-	}
-
 	@Override
 	public void render(ScreenPosition position) {
 		Minecraft.getMinecraft().fontRendererObj.drawString(Minecraft.getMinecraft().thePlayer.movementInput.getDisplayText(), position.getAbsoluteX(), position.getAbsoluteY(), 0xFFFFFF);

@@ -1,4 +1,4 @@
-package com.nakory.hud.implementations;
+package com.nakory.modules.implementations;
 
 import java.util.Iterator;
 
@@ -6,6 +6,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.nakory.hud.IRenderer;
 import com.nakory.hud.util.ScreenPosition;
+import com.nakory.modules.RenderableModule;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -19,24 +20,18 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 
-public class EffectsStatusRenderer implements IRenderer{
+public class EffectsStatusModule extends RenderableModule{
 
 	private FontRenderer fontRenderer;
 	
-	public EffectsStatusRenderer() {
+	public EffectsStatusModule() {
 		fontRenderer = Minecraft.getMinecraft().fontRendererObj;
 	}
 	
-	ScreenPosition pos;
-	
 	@Override
-	public void save(ScreenPosition position) {
-		pos = position;
-	}
-
-	@Override
-	public ScreenPosition load() {
-		return pos;
+	public ScreenPosition getDefaultPosition() {
+		// TODO Auto-generated method stub
+		return ScreenPosition.fromRelativePosition(0.85, 0);
 	}
 
 	@Override

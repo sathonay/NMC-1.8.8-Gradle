@@ -3,6 +3,7 @@ package net.minecraft.client.gui;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.nakory.NakoryClient;
 import com.nakory.gui.GuiClientOptions;
 
 import java.util.ArrayList;
@@ -577,7 +578,7 @@ public class GuiIngame extends Gui
         for (Object score : arraylist1)
         {
             ScorePlayerTeam scoreplayerteam = scoreboard.getPlayersTeam(((Score) score).getPlayerName());
-            String s = ScorePlayerTeam.formatPlayerName(scoreplayerteam, ((Score) score).getPlayerName()) + (GuiClientOptions.showRedNumberInScoreboard ? ": " + EnumChatFormatting.RED + ((Score) score).getScorePoints() : "");
+            String s = ScorePlayerTeam.formatPlayerName(scoreplayerteam, ((Score) score).getPlayerName()) + (NakoryClient.getInstance().getSettings().showRedNumberInScoreboard ? ": " + EnumChatFormatting.RED + ((Score) score).getScorePoints() : "");
             i = Math.max(i, this.getFontRenderer().getStringWidth(s));
         }
 
@@ -596,7 +597,7 @@ public class GuiIngame extends Gui
             int i1 = p_180475_2_.getScaledWidth() - b0 + 2;
             drawRect(j - 2, l, i1, l + this.getFontRenderer().FONT_HEIGHT, 1342177280);
             this.getFontRenderer().drawString(s1, j, l, 553648127);
-            if (GuiClientOptions.showRedNumberInScoreboard) {
+            if (NakoryClient.getInstance().getSettings().showRedNumberInScoreboard) {
             	String s2 = EnumChatFormatting.RED + "" + ((Score) score1).getScorePoints();
             	this.getFontRenderer().drawString(s2, i1 - this.getFontRenderer().getStringWidth(s2), l, 553648127);
             }

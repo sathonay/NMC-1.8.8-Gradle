@@ -1,9 +1,10 @@
-package com.nakory.hud.implementations;
+package com.nakory.modules.implementations;
 
 import org.lwjgl.opengl.GL11;
 
 import com.nakory.hud.IRenderer;
 import com.nakory.hud.util.ScreenPosition;
+import com.nakory.modules.RenderableModule;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -11,24 +12,18 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-public class ArmorStatusRenderer implements IRenderer{
+public class ArmorStatusModule extends RenderableModule{
 
 	private FontRenderer fontRenderer;
 	
-	public ArmorStatusRenderer() {
+	public ArmorStatusModule() {
 		fontRenderer = Minecraft.getMinecraft().fontRendererObj;
-	}
-	
-	ScreenPosition pos;
-	
-	@Override
-	public void save(ScreenPosition position) {
-		pos = position;
 	}
 
 	@Override
-	public ScreenPosition load() {
-		return pos;
+	public ScreenPosition getDefaultPosition() {
+		// TODO Auto-generated method stub
+		return ScreenPosition.fromRelativePosition(0, 0);
 	}
 
 	@Override

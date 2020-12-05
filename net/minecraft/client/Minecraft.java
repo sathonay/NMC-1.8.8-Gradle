@@ -16,7 +16,7 @@ import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import com.nakory.NakoryClient;
 import com.nakory.event.EventManager;
 import com.nakory.event.implementations.ClientTickEvent;
-import com.nakory.hud.implementations.toggleSprint.ToggleSprintMovementInput;
+import com.nakory.modules.implementations.togglesprint.ToggleSprintMovementInput;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -595,6 +595,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
         }
 
         this.renderGlobal.makeEntityOutlineShader();
+        NakoryClient.getInstance().start();
     }
 
     private void registerMetadataSerializers()

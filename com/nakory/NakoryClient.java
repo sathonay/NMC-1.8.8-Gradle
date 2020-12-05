@@ -4,12 +4,13 @@ import com.nakory.event.EventHandler;
 import com.nakory.event.EventManager;
 import com.nakory.event.Listener;
 import com.nakory.event.implementations.ClientTickEvent;
+import com.nakory.gui.NakorySettings;
 import com.nakory.hud.HudPropertyApi;
-import com.nakory.hud.implementations.ArmorStatusRenderer;
-import com.nakory.hud.implementations.EffectsStatusRenderer;
-import com.nakory.hud.implementations.FPSRenderer;
-import com.nakory.hud.implementations.toggleSprint.ToggleSprintRenderer;
-import com.nakory.hud.test.TestRenderer;
+import com.nakory.modules.implementations.ArmorStatusModule;
+import com.nakory.modules.implementations.EffectsStatusModule;
+import com.nakory.modules.implementations.FPSRModule;
+import com.nakory.modules.implementations.togglesprint.ToggleSprintModule;
+import com.nakory.modules.implementations.CPSModule;
 
 import net.minecraft.client.Minecraft;
 
@@ -22,14 +23,26 @@ public class NakoryClient {
 	}
 	
 	private HudPropertyApi hudPropertyApi = HudPropertyApi.newInstance();
+	private FileManager fileManager = new FileManager();
+	private NakorySettings settings;
 	
 	public void init() {
+		fileManager.init();
+		settings = NakorySettings.load();
 		EventManager.register(this);
 		EventManager.register(hudPropertyApi);
-		hudPropertyApi.register(new FPSRenderer());
-		hudPropertyApi.register(new ArmorStatusRenderer());
-		hudPropertyApi.register(new EffectsStatusRenderer());
-		hudPropertyApi.register(new ToggleSprintRenderer());
+	}
+	
+	public void start() {
+		registerHUD();
+	}
+	
+	private void registerHUD() {
+		hudPropertyApi.register(new FPSRModule());
+		hudPropertyApi.register(new ArmorStatusModule());
+		hudPropertyApi.register(new EffectsStatusModule());
+		hudPropertyApi.register(new ToggleSprintModule());
+		hudPropertyApi.register(new CPSModule());
 	}
 	
 	@EventHandler
@@ -43,7 +56,13 @@ public class NakoryClient {
 		return hudPropertyApi;
 	}
 	
-	public void shutdown() {
-		
+	public FileManager getFileManager() {
+		return fileManager;
 	}
+	
+	public NakorySettings getSettings() {
+		return settings;
+	}
+	
+	public void shutdown() {}
 }
