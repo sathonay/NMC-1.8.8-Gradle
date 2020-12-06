@@ -59,19 +59,6 @@ public class CPSModule  extends RenderableModule {
 		Minecraft.getMinecraft().fontRendererObj.drawString(text, position.getAbsoluteX(), position.getAbsoluteY(), 0xFFFFFF);
 	}
 	
-	
-	private boolean enable = true;
-	
-	@Override
-	public void setEnable(boolean enable) {
-		this.enable = enable;
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return enable;
-	}
-	
 	private final List<Long> clicks = new ArrayList<>();
 	
 	private int getCPS() {

@@ -51,4 +51,31 @@ public abstract class RenderableModule implements IRenderer{
 	private void savePositionToFile() {
 		NakoryClient.getInstance().getFileManager().writJsonToFile(new File(getFolder(), "position.json"), position);
 	}
+	
+	private boolean rendererEnabled = loadRendererEnabled();
+	
+	private boolean loadRendererEnabled() {
+		Optional<Boolean> rendererEnabled = NakoryClient.getInstance().getFileManager().readFromJson(new File(getFolder(), "rendererEnabled.json"), Boolean.class);
+		if (rendererEnabled.isPresent()) return rendererEnabled.get();
+		return true;
+	}
+	
+	private void saveRendererEnabledToFile() {
+		NakoryClient.getInstance().getFileManager().writJsonToFile(new File(getFolder(), "rendererEnabled.json"), rendererEnabled);
+	}
+	
+	@Override
+	public void setEnable(boolean enable) {
+		this.rendererEnabled = enable;
+		saveRendererEnabledToFile();
+	}
+
+	/**
+	 * For renderer
+	 */
+	@Override
+	public boolean isEnabled() {
+		return rendererEnabled;
+	}
+	
 }

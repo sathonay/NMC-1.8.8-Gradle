@@ -41,17 +41,4 @@ public class FPSRModule extends RenderableModule {
 	public void renderDummy(ScreenPosition position) {
 		Minecraft.getMinecraft().fontRendererObj.drawString(text, position.getAbsoluteX(), position.getAbsoluteY(), 0xFFFFFF);
 	}
-	
-	
-	private boolean enable = true;
-	
-	@Override
-	public void setEnable(boolean enable) {
-		this.enable = enable;
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return enable;
-	}
 }

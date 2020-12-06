@@ -97,17 +97,4 @@ public class EffectsStatusModule extends RenderableModule{
         Minecraft.getMinecraft().fontRendererObj.drawString(s1, (pos.getAbsoluteX() + 20), (pos.getAbsoluteY() + yOffSet + 1), 16777215);
         Minecraft.getMinecraft().fontRendererObj.drawString(Potion.getDurationString(effect), (pos.getAbsoluteX() + 20), (pos.getAbsoluteY() + yOffSet + 10), 8355711);
 	}
-	
-	
-	private boolean enable = true;
-	
-	@Override
-	public void setEnable(boolean enable) {
-		this.enable = enable;
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return enable;
-	}
 }

@@ -76,17 +76,4 @@ public class ArmorStatusModule extends RenderableModule{
 		Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(item, pos.getAbsoluteX(), pos.getAbsoluteY() + yOffSet);
 		GL11.glPopMatrix();
 	}
-	
-	
-	private boolean enable = true;
-	
-	@Override
-	public void setEnable(boolean enable) {
-		this.enable = enable;
-	}
-	
-	@Override
-	public boolean isEnabled() {
-		return enable;
-	}
 }
