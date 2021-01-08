@@ -18,6 +18,8 @@ import com.nakory.event.EventManager;
 import com.nakory.event.implementations.ClientTickEvent;
 import com.nakory.modules.implementations.togglesprint.ToggleSprintMovementInput;
 
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -54,6 +56,8 @@ import net.minecraft.client.gui.GuiIngameMenu;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiMemoryErrorScreen;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiScreenServerList;
+import net.minecraft.client.gui.GuiSelectWorld;
 import net.minecraft.client.gui.GuiSleepMP;
 import net.minecraft.client.gui.GuiYesNo;
 import net.minecraft.client.gui.GuiYesNoCallback;
@@ -359,9 +363,24 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
     /** Profiler currently displayed in the debug screen pie chart */
     private String debugProfilerName = "root";
+    
+    private int highestMonitorFrequency = 60;
 
     public Minecraft(GameConfiguration gameConfig)
     {
+    	
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice[] gs = ge.getScreenDevices();
+        
+        for (int i = 0; i < gs.length; i++) {
+            java.awt.DisplayMode dm = gs[i].getDisplayMode();
+
+            int refreshRate = dm.getRefreshRate();
+            if (refreshRate == java.awt.DisplayMode.REFRESH_RATE_UNKNOWN) refreshRate = 60;
+            
+            if (refreshRate > highestMonitorFrequency) highestMonitorFrequency = refreshRate;
+        }
+    	
         theMinecraft = this;
         this.mcDataDir = gameConfig.folderInfo.mcDataDir;
         this.fileAssets = gameConfig.folderInfo.assetsDir;
@@ -1240,7 +1259,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     public int getLimitFramerate()
     {
     	//NMC-1.8.8 - Remove framerate limit in menus
-        return /*this.theWorld == null && this.currentScreen != null ? 30 :*/ !Display.isActive() ? 30 : this.gameSettings.limitFramerate;
+        //return /*this.theWorld == null && this.currentScreen != null ? 30 :*/ !Display.isActive() ? 30 : this.gameSettings.limitFramerate;
+    	return (this.theWorld == null && this.currentScreen != null)
+    			|| !Display.isActive() ? highestMonitorFrequency : this.gameSettings.limitFramerate;
+        
     }
 
     public boolean isFramerateLimitBelowMax()
