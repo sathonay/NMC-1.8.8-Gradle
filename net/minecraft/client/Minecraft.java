@@ -1258,11 +1258,10 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     // TODO : I will test if it's working when i will comeback from my holydays.
     public int getLimitFramerate()
     {
+    	if (!Display.isActive()) return 30;
     	//NMC-1.8.8 - Remove framerate limit in menus
         //return /*this.theWorld == null && this.currentScreen != null ? 30 :*/ !Display.isActive() ? 30 : this.gameSettings.limitFramerate;
-    	return (this.theWorld == null && this.currentScreen != null)
-    			|| !Display.isActive() ? highestMonitorFrequency : this.gameSettings.limitFramerate;
-        
+    	return (this.theWorld == null && this.currentScreen != null) ? highestMonitorFrequency : this.gameSettings.limitFramerate;
     }
 
     public boolean isFramerateLimitBelowMax()
