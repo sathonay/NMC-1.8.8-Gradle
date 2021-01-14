@@ -8,6 +8,8 @@ import org.lwjgl.input.Keyboard;
 import com.nakory.hud.util.ScreenPosition;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.settings.KeyBinding;
 
@@ -54,8 +56,8 @@ public class KeystrokeKey {
 	public void render(ScreenPosition position) {
 		GuiScreen.drawRect(position.getAbsoluteX() + xOffSet, position.getAbsoluteY() + yOffSet, position.getAbsoluteX() + xOffSet + width, position.getAbsoluteY() + yOffSet + height, isDown() ? new Color(255, 255, 255, 102).getRGB() : new Color(0, 0, 0, 102).getRGB());
 		Minecraft.getMinecraft().fontRendererObj.drawString(
-				getKeyName(), position.getAbsoluteX() + xOffSet + (width / 2) - (Minecraft.getMinecraft().fontRendererObj.getStringWidth(getKeyName()) / 2),
-				position.getAbsoluteY() + yOffSet + (height / 2) - (Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT / 2),
+				getKeyName(), position.getAbsoluteX() + xOffSet + ((width - Minecraft.getMinecraft().fontRendererObj.getStringWidth(getKeyName())) / 2),
+				position.getAbsoluteY() + yOffSet + ((height - Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT) / 2) + 1,
 				isDown()  ? Color.BLACK.getRGB() : Color.WHITE.getRGB());
 	}
 }
