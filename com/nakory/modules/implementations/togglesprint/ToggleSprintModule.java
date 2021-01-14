@@ -1,6 +1,7 @@
 package com.nakory.modules.implementations.togglesprint;
 
 import com.nakory.hud.IRenderer;
+import com.nakory.hud.PropertyScreen;
 import com.nakory.hud.util.ScreenPosition;
 import com.nakory.modules.RenderableModule;
 
@@ -9,7 +10,7 @@ import net.minecraft.client.gui.FontRenderer;
 
 public class ToggleSprintModule extends RenderableModule {
 
-	private String text = "[Sprinting (Key Toggled))]";
+	private String text = "[Flying]";
 	private FontRenderer fontRenderer;
 	
 	public boolean flyBoost = true;
@@ -27,7 +28,7 @@ public class ToggleSprintModule extends RenderableModule {
 	
 	@Override
 	public void render(ScreenPosition position) {
-		Minecraft.getMinecraft().fontRendererObj.drawString(Minecraft.getMinecraft().thePlayer.movementInput.getDisplayText(), position.getAbsoluteX(), position.getAbsoluteY(), 0xFFFFFF);
+		Minecraft.getMinecraft().fontRendererObj.drawString(text, position.getAbsoluteX(), position.getAbsoluteY(), 0xFFFFFF);
 	}
 
 	@Override
@@ -37,7 +38,7 @@ public class ToggleSprintModule extends RenderableModule {
 
 	@Override
 	public int getWidth() {
-		return Minecraft.getMinecraft().fontRendererObj.getStringWidth(text);
+		return Minecraft.getMinecraft().fontRendererObj.getStringWidth(Minecraft.getMinecraft().currentScreen instanceof PropertyScreen ? text = "[Flying]" : (text = Minecraft.getMinecraft().thePlayer.movementInput.getDisplayText()));
 	}
 
 	@Override

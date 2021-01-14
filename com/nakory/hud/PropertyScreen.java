@@ -26,7 +26,21 @@ public class PropertyScreen extends GuiScreen {
 
 	private int prevX, prevY;
 
+	private final HudPropertyApi api;
+	
 	public PropertyScreen(HudPropertyApi api){
+		this.api = api;
+	}
+	
+	private int deltaX, deltaY;
+
+	
+	private float zBackup = 0;
+	
+	@Override
+	public void initGui() {
+		// TODO Auto-generated method stub
+		super.initGui();
 		Collection<IRenderer> registeredRenderers = api.getHandlers();
 
 		for(IRenderer ren : registeredRenderers){ 
@@ -47,11 +61,6 @@ public class PropertyScreen extends GuiScreen {
 
 		this.renderOutlines = api.getRenderOutlines();
 	}
-	
-	private int xDis, yDis;
-
-	
-	private float zBackup = 0;
 	
 	@Override
 	public void drawScreen(int x, int y, float partialTicks) {
@@ -93,8 +102,8 @@ public class PropertyScreen extends GuiScreen {
 		selectedRenderer.ifPresent(renderer -> {
 			if (button == 0) {
 				ScreenPosition position = renderers.get(renderer);
-				xDis = x - position.getAbsoluteX();
-				yDis = y - position.getAbsoluteY();
+				deltaX = x - position.getAbsoluteX();
+				deltaY = y - position.getAbsoluteY();
 			} else if (button == 1) renderer.setEnable(!renderer.isEnabled());
 		});
 	}
@@ -102,7 +111,7 @@ public class PropertyScreen extends GuiScreen {
 	@Override
 	protected void mouseClickMove(int x, int y, int button, long time) {
 		if(selectedRenderer.isPresent() && button == 0){
-			moveSelectedRendererBy(x - xDis, y - yDis);
+			moveSelectedRendererBy(x - deltaX, y - deltaY);
 		}
 	}
 	
@@ -131,6 +140,7 @@ public class PropertyScreen extends GuiScreen {
 		int screenWidth = res.getScaledWidth();
 		int screenHeight = res.getScaledHeight();
 
+		System.out.println(renderer.getClass() + "/" +renderer.getWidth());
 		int absoluteX = Math.max(0, Math.min(pos.getAbsoluteX(), Math.max(screenWidth - renderer.getWidth(), 0)));
 		int absoluteY = Math.max(0, Math.min(pos.getAbsoluteY(), Math.max(screenHeight - renderer.getHeight(), 0)));
 		

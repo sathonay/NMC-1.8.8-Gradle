@@ -43,16 +43,16 @@ public class ToggleSprintMovementInput extends MovementInput {
 		
 		if (isFlying) {
 			if (boostedFlySpeed > 0.0F) displayText += "[Flying (" + /*df.format(*/boostedFlySpeed / originalFlySpeed/*)*/ + "x Boost)]  ";
-			else displayText = "[Flying]  ";
+			else displayText = "[Flying]";
 		}
 		
 		if (isRiding) {
-			displayText += "[Riding]  ";
+			displayText += "[Riding]";
 		}
 		
 		if (sneak) {
-			if (isFlying) displayText +="[Descending]";
-			else if (isRiding) displayText += "[Dismounting]";
+			if (isFlying) displayText +="  [Descending]";
+			else if (isRiding) displayText += "  [Dismounting]";
 			else if(isHoldingSneak) displayText += "[Sneaking (Key Held)]";
 			else displayText += "[Sneaking (Key Toggled)]";
 		} else if (sprint && !isFlying && !isRiding) {

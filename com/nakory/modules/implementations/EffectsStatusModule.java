@@ -5,6 +5,7 @@ import java.util.Iterator;
 import org.lwjgl.opengl.GL11;
 
 import com.nakory.hud.IRenderer;
+import com.nakory.hud.PropertyScreen;
 import com.nakory.hud.util.ScreenPosition;
 import com.nakory.modules.RenderableModule;
 
@@ -44,20 +45,57 @@ public class EffectsStatusModule extends RenderableModule{
 
 	@Override
 	public int getHeight() {
-		return 64 + 16;
+		return Minecraft.getMinecraft().currentScreen instanceof PropertyScreen ? getHeight(1) : getHeight(Minecraft.getMinecraft().thePlayer.getActivePotionEffects().size());
 	}
 
 	@Override
 	public int getWidth() {
-		return 64;
+		return preCalcWidth();
+	}
+	
+	private int preCalcWidth() {
+		return Minecraft.getMinecraft().currentScreen instanceof PropertyScreen ? getWidth(new PotionEffect(3, 0, 0)) : getWidth(Minecraft.getMinecraft().thePlayer.getActivePotionEffects().toArray(new PotionEffect[0]));
+	}
+	
+	private int getHeight(int effects) {
+		return effects * 20;
+	}
+	
+	private int getWidth(PotionEffect... effects) {
+		int maxWidth = 0;
+		
+		for (PotionEffect effect : effects) {
+			int width = 0;
+			Potion potion = Potion.potionTypes[effect.getPotionID()];
+			String s1 = I18n.format(potion.getName(), new Object[0]);
+
+	        if (effect.getAmplifier() == 1)
+	        {
+	            s1 = s1 + " " + I18n.format("enchantment.level.2", new Object[0]);
+	        }
+	        else if (effect.getAmplifier() == 2)
+	        {
+	            s1 = s1 + " " + I18n.format("enchantment.level.3", new Object[0]);
+	        }
+	        else if (effect.getAmplifier() == 3)
+	        {
+	            s1 = s1 + " " + I18n.format("enchantment.level.4", new Object[0]);
+	        }
+
+	        width = Minecraft.getMinecraft().fontRendererObj.getStringWidth(s1);
+	        int timeWidth = Minecraft.getMinecraft().fontRendererObj.getStringWidth(Potion.getDurationString(effect));
+	        if (timeWidth > width) width = timeWidth;
+	        width += 20;
+	        if (width > maxWidth) maxWidth = width;
+		
+		}
+		
+		return maxWidth;
 	}
 
 	@Override
 	public void renderDummy(ScreenPosition position) {
-		renderEffect(position, 0, new PotionEffect(1, 0, 0));
-		renderEffect(position, 1, new PotionEffect(2, 0, 0));
-		renderEffect(position, 2, new PotionEffect(3, 0, 0));
-		renderEffect(position, 3, new PotionEffect(4, 0, 0));
+		renderEffect(position, 0, new PotionEffect(3, 0, 0));
 	}
 	
 	private static final ResourceLocation potionInventory = new ResourceLocation("textures/gui/container/inventory.png");

@@ -1,8 +1,12 @@
 package com.nakory.modules.implementations;
 
+import java.util.Arrays;
+
+import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.opengl.GL11;
 
 import com.nakory.hud.IRenderer;
+import com.nakory.hud.PropertyScreen;
 import com.nakory.hud.util.ScreenPosition;
 import com.nakory.modules.RenderableModule;
 
@@ -14,6 +18,7 @@ import net.minecraft.item.ItemStack;
 
 public class ArmorStatusModule extends RenderableModule{
 
+	private int witdth = 64;
 	private FontRenderer fontRenderer;
 	
 	public ArmorStatusModule() {
@@ -28,7 +33,6 @@ public class ArmorStatusModule extends RenderableModule{
 
 	@Override
 	public void render(ScreenPosition position) {
-		
 		int validIndex = 0;
 		
 		ItemStack heldItem = Minecraft.getMinecraft().thePlayer.getHeldItem();
@@ -41,21 +45,47 @@ public class ArmorStatusModule extends RenderableModule{
 
 	@Override
 	public int getHeight() {
-		return 64 + 16;
+		return preCalcHeight();
 	}
 
 	@Override
 	public int getWidth() {
-		return 64;
+		return preCalcWidth();
 	}
+	
+	private final ItemStack[] dummyArmor = {new ItemStack(Items.wooden_sword), new ItemStack(Items.leather_boots), new ItemStack(Items.leather_leggings), new ItemStack(Items.leather_chestplate), new ItemStack(Items.leather_helmet)};
 
 	@Override
 	public void renderDummy(ScreenPosition position) {
-		renderItem(position, 4, new ItemStack(Items.diamond_helmet));
-		renderItem(position, 3, new ItemStack(Items.diamond_chestplate));
-		renderItem(position, 2, new ItemStack(Items.diamond_leggings));
-		renderItem(position, 1, new ItemStack(Items.diamond_boots));	
-		renderItem(position, 0, new ItemStack(Items.diamond_sword));	
+		for (int index = 0; index < dummyArmor.length; index++) {
+			renderItem(position, index, dummyArmor[index]);
+		}
+	}
+	
+	private int preCalcHeight() {
+		return Minecraft.getMinecraft().currentScreen instanceof PropertyScreen ? getHeight(dummyArmor.length) : getHeight(ArrayUtils.add(Minecraft.getMinecraft().thePlayer.inventory.armorInventory, Minecraft.getMinecraft().thePlayer.getHeldItem()).length);  
+	}
+	
+	private int getHeight(int items) {
+		return 16 * items;
+	}
+	
+	private int preCalcWidth() {
+		return Minecraft.getMinecraft().currentScreen instanceof PropertyScreen ? getWidth(new ItemStack(Items.wooden_sword)) : getWidth(ArrayUtils.add(Minecraft.getMinecraft().thePlayer.inventory.armorInventory, Minecraft.getMinecraft().thePlayer.getHeldItem()));  
+	}
+	
+	private int getWidth(ItemStack... items) {
+		int maxWidth = 16;
+		for (ItemStack item : items) {
+			if (item == null) continue;
+			if (item.getItem().isDamageable()) {
+				int damage = item.getMaxDamage() - item.getItemDamage();
+				int width = 20 + Minecraft.getMinecraft().fontRendererObj.getStringWidth(damage + "/" + item.getMaxDamage());
+				if (width > maxWidth) maxWidth = width;
+			}
+		}
+		
+		return maxWidth;
 	}
 	
 	private void renderItem(ScreenPosition pos, int index, ItemStack item) {
@@ -63,10 +93,10 @@ public class ArmorStatusModule extends RenderableModule{
 			return;
 		}
 
-		
 		int yOffSet = (-16 * index) + 64;
 		
 		if (item.getItem().isDamageable()) {
+			int stringWidth = 20;
 			int damage = item.getMaxDamage() - item.getItemDamage();
 			Minecraft.getMinecraft().fontRendererObj.drawString(damage + "/" + item.getMaxDamage(), pos.getAbsoluteX() + 20, pos.getAbsoluteY() + yOffSet + 5, -1);
 		}

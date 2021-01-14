@@ -87,8 +87,8 @@ public final class ScreenPosition{
 	 */
 	public void setAbsolute(int x, int y){
 		ScaledResolution res = new ScaledResolution(mc);
-		this.x = (double)x / res.getScaledWidth();
-		this.y = (double)y / res.getScaledHeight();
+		this.x = (double) x / res.getScaledWidth();
+		this.y = (double) y / res.getScaledHeight();
 	}
 	
 	@Override

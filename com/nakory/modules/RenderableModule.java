@@ -19,6 +19,7 @@ public abstract class RenderableModule implements IRenderer{
 		return ScreenPosition.fromRelativePosition(0.5,  0.5);
 	}
 	
+	
 	private ScreenPosition loadPositionFromFile() {
 		Optional<ScreenPosition> position = NakoryClient.getInstance().getFileManager().readFromJson(new File(getFolder(), "position.json"), ScreenPosition.class);
 		if (position.isPresent()) return position.get();

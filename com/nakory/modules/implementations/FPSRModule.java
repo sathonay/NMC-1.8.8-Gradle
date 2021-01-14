@@ -1,6 +1,7 @@
 package com.nakory.modules.implementations;
 
 import com.nakory.hud.IRenderer;
+import com.nakory.hud.PropertyScreen;
 import com.nakory.hud.util.ScreenPosition;
 import com.nakory.modules.RenderableModule;
 
@@ -9,7 +10,7 @@ import net.minecraft.client.gui.FontRenderer;
 
 public class FPSRModule extends RenderableModule {
 
-	private String text = "1000 fps";
+	private String text = "1 fps";
 	private FontRenderer fontRenderer;
 	
 	public FPSRModule() {
@@ -24,7 +25,7 @@ public class FPSRModule extends RenderableModule {
 
 	@Override
 	public void render(ScreenPosition position) {
-		Minecraft.getMinecraft().fontRendererObj.drawString(Minecraft.getDebugFPS() + " fps", position.getAbsoluteX(), position.getAbsoluteY(), 0xFFFFFF);
+		Minecraft.getMinecraft().fontRendererObj.drawString(text, position.getAbsoluteX(), position.getAbsoluteY(), 0xFFFFFF);
 	}
 
 	@Override
@@ -34,9 +35,9 @@ public class FPSRModule extends RenderableModule {
 
 	@Override
 	public int getWidth() {
-		return Minecraft.getMinecraft().fontRendererObj.getStringWidth(text);
+		return Minecraft.getMinecraft().fontRendererObj.getStringWidth(text = (Minecraft.getMinecraft().currentScreen instanceof PropertyScreen ? "1 fps" : Minecraft.getDebugFPS() + " fps"));
 	}
-
+	
 	@Override
 	public void renderDummy(ScreenPosition position) {
 		Minecraft.getMinecraft().fontRendererObj.drawString(text, position.getAbsoluteX(), position.getAbsoluteY(), 0xFFFFFF);
