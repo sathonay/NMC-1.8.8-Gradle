@@ -12,7 +12,10 @@ import com.nakory.event.implementations.RenderEvent;
 import com.nakory.hud.util.ScreenPosition;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.entity.Render;
 public final class HudPropertyApi {
 
@@ -59,21 +62,16 @@ public final class HudPropertyApi {
 
 	@EventHandler
 	public void onRender(RenderEvent event){
-		if(mc.currentScreen == null && !(mc.currentScreen instanceof PropertyScreen)){
+		if((mc.currentScreen == null || mc.currentScreen instanceof GuiChat || mc.currentScreen instanceof GuiContainer) && !(mc.currentScreen instanceof PropertyScreen)){
 			renderers.forEach(this::callRenderer);
 		}
 	}
 
 	private void callRenderer(IRenderer renderer){
-		if(!renderer.isEnabled()){
-			return;
-		}
+		if(!renderer.isEnabled()) return;
 		
 		ScreenPosition position = renderer.load();
-
-		if(position == null){
-			position = ScreenPosition.fromRelativePosition(0.5, 0.5);
-		}
+		if(position == null) position = ScreenPosition.fromRelativePosition(0.5, 0.5);
 
 		renderer.render(adjustBounds(renderer, position));
 	}
