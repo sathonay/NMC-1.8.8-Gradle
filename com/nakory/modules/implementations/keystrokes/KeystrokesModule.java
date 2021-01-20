@@ -1,4 +1,4 @@
-package com.nakory.modules.implementations;
+package com.nakory.modules.implementations.keystrokes;
 
 import java.awt.Color;
 
@@ -6,14 +6,15 @@ import com.nakory.hud.util.ScreenPosition;
 import com.nakory.modules.RenderableModule;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
 public class KeystrokesModule extends RenderableModule {
 
 	
-	/*private KeystrokeKey forward = new KeystrokeKey(Minecraft.getMinecraft().gameSettings.keyBindForward, 22, 0);
-	private KeystrokeKey back = new KeystrokeKey(Minecraft.getMinecraft().gameSettings.keyBindBack, 22, 22);
-	private KeystrokeKey left = new KeystrokeKey(Minecraft.getMinecraft().gameSettings.keyBindLeft, 0, 22);
-	private KeystrokeKey right = new KeystrokeKey(Minecraft.getMinecraft().gameSettings.keyBindRight, 44 , 22);*/
+
 	private final KeystrokeKey[] keys = {
 			new KeystrokeKey(Minecraft.getMinecraft().gameSettings.keyBindForward, 22, 0, 20, 20),
 			new KeystrokeKey(Minecraft.getMinecraft().gameSettings.keyBindBack, 22, 22, 20, 20),
@@ -36,7 +37,7 @@ public class KeystrokesModule extends RenderableModule {
 	public void render(ScreenPosition position) {
 		for (KeystrokeKey key : keys) key.render(position);
 	}
-
+	
 	@Override
 	public void renderDummy(ScreenPosition position) {
 		for (KeystrokeKey key : keys) key.render(position);

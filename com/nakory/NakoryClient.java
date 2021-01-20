@@ -9,7 +9,7 @@ import com.nakory.hud.HudPropertyApi;
 import com.nakory.modules.implementations.ArmorStatusModule;
 import com.nakory.modules.implementations.EffectsStatusModule;
 import com.nakory.modules.implementations.FPSRModule;
-import com.nakory.modules.implementations.KeystrokesModule;
+import com.nakory.modules.implementations.keystrokes.KeystrokesModule;
 import com.nakory.modules.implementations.togglesprint.ToggleSprintModule;
 import com.nakory.modules.implementations.CPSModule;
 
