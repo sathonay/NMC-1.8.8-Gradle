@@ -58,7 +58,7 @@ public class EffectsStatusModule extends RenderableModule{
 	}
 	
 	private int getHeight(int effects) {
-		return effects * 20;
+		return effects * 20 - 2;
 	}
 	
 	private int getWidth(PotionEffect... effects) {
