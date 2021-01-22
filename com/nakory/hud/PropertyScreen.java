@@ -70,18 +70,19 @@ public class PropertyScreen extends GuiScreen {
 		this.zLevel = 200;	
 
 		renderers.forEach((renderer, position) -> {
+			this.drawHollowRect(position.getAbsoluteX(), position.getAbsoluteY(), renderer.getWidth(), renderer.getHeight(), renderer.isEnabled() ? new Color(0, 155, 0).getRGB() : new Color(155, 0, 0).getRGB());
 			renderer.renderDummy(position);
-			this.drawHollowRect(position.getAbsoluteX(), position.getAbsoluteY(), renderer.getWidth(), renderer.getHeight(), renderer.isEnabled() ? Color.GREEN.getRGB() : Color.RED.getRGB());
 			});
 
 		this.zLevel = zBackup;
 	}
 	
 	private void drawHollowRect(int x, int y, int w, int h, int color) {
-		this.drawHorizontalLine(x, x + w, y, color);
-		this.drawHorizontalLine(x, x + w, y + h, color);
-		this.drawVerticalLine(x, y + h, y, color);
-		this.drawVerticalLine(x + w, y + h, y, color);
+		this.drawHorizontalLine(x - 1, x + w, y - 1, color);
+		this.drawHorizontalLine(x - 1, x + w, y + h, color);
+		this.drawVerticalLine(x - 1, y + h, y - 1, color);
+		this.drawVerticalLine(x + w, y + h, y - 1, color);
+		this.drawRect(x, y, x + w, y + h, new Color(144, 144, 144, 100).getRGB());
 	}
 
 
@@ -140,7 +141,6 @@ public class PropertyScreen extends GuiScreen {
 		int screenWidth = res.getScaledWidth();
 		int screenHeight = res.getScaledHeight();
 
-		System.out.println(renderer.getClass() + "/" +renderer.getWidth());
 		int absoluteX = Math.max(0, Math.min(pos.getAbsoluteX(), Math.max(screenWidth - renderer.getWidth(), 0)));
 		int absoluteY = Math.max(0, Math.min(pos.getAbsoluteY(), Math.max(screenHeight - renderer.getHeight(), 0)));
 		
