@@ -8,6 +8,7 @@ import com.nakory.hud.util.ScreenPosition;
 import com.nakory.modules.RenderableModule;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
@@ -30,13 +31,14 @@ public class NearPlayersModule extends RenderableModule {
 		int width = 0;
 		
 		if (Minecraft.getMinecraft().currentScreen instanceof PropertyScreen) {
-			lines.add(" - Name (x, y, z)");
+			lines.add(" - Name (x, y, z) [d]");
 		} else {
-			for (Entity entity : Minecraft.getMinecraft().thePlayer.worldObj.loadedEntityList) {
-				if (entity instanceof EntityPlayer) {
-					BlockPos pos = entity.getPosition();
-					lines.add(" - " + entity.getName() + " (" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ")");
-				}
+			EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+			BlockPos playerPos = player.getPosition();
+			for (Entity entity : player.worldObj.loadedEntityList) {
+				if (entity == player || !(entity instanceof EntityPlayer)) continue;
+				BlockPos pos = entity.getPosition();
+				lines.add(" - " + entity.getName() + " (" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ") [" + (int) Math.sqrt(pos.distanceSq(playerPos)) + "]");
 			}
 		}
 		
