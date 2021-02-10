@@ -1650,7 +1650,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
             }
         //}
     }
-
+    
     /**
      * Toggles fullscreen mode.
      */
@@ -1661,51 +1661,26 @@ public class Minecraft implements IThreadListener, IPlayerUsage
             this.fullscreen = !this.fullscreen;
             this.gameSettings.fullScreen = this.fullscreen;
 
-            if (this.fullscreen)
-            {
+            if (this.fullscreen) {
                 this.updateDisplayMode();
                 this.displayWidth = Display.getDisplayMode().getWidth();
                 this.displayHeight = Display.getDisplayMode().getHeight();
-
-                if (this.displayWidth <= 0)
-                {
-                    this.displayWidth = 1;
-                }
-
-                if (this.displayHeight <= 0)
-                {
-                    this.displayHeight = 1;
-                }
-            }
-            else
-            {
+            } else {
                 Display.setDisplayMode(new DisplayMode(this.tempDisplayWidth, this.tempDisplayHeight));
                 this.displayWidth = this.tempDisplayWidth;
                 this.displayHeight = this.tempDisplayHeight;
-
-                if (this.displayWidth <= 0)
-                {
-                    this.displayWidth = 1;
-                }
-
-                if (this.displayHeight <= 0)
-                {
-                    this.displayHeight = 1;
-                }
             }
+            
+            if (this.displayWidth <= 0) this.displayWidth = 1;
+            if (this.displayHeight <= 0) this.displayHeight = 1;
 
-            if (this.currentScreen != null)
-            {
-                this.resize(this.displayWidth, this.displayHeight);
-            }
-            else
-            {
-                this.updateFramebufferSize();
-            }
-
+            if (this.currentScreen != null) this.resize(this.displayWidth, this.displayHeight);
+            else this.updateFramebufferSize();
+            
+            System.setProperty("org.lwjgl.opengl.Window.undecorated", String.valueOf(fullscreen));
+            Display.setDisplayMode(fullscreen ? Display.getDesktopDisplayMode() : new DisplayMode(displayWidth, displayHeight));
+            Display.setResizable(!fullscreen);
             Display.setFullscreen(false);
-            Display.setResizable(fullscreen);
-            System.setProperty("org.lwjgl.opengl.Window.undecorated", String.valueOf(!fullscreen));
             Display.setVSyncEnabled(this.gameSettings.enableVsync);
             this.updateDisplay();
         }
