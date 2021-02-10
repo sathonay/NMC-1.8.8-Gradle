@@ -1703,7 +1703,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage
                 this.updateFramebufferSize();
             }
 
-            Display.setFullscreen(this.fullscreen);
+            Display.setFullscreen(false);
+            Display.setResizable(fullscreen);
+            System.setProperty("org.lwjgl.opengl.Window.undecorated", String.valueOf(!fullscreen));
             Display.setVSyncEnabled(this.gameSettings.enableVsync);
             this.updateDisplay();
         }
