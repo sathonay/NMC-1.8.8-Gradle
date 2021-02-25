@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.lwjgl.opengl.GL11;
 
-import com.nakory.gui.GuiClientButton;
 import com.nakory.gui.GuiClientOptions;
 
 import net.minecraft.client.gui.achievement.GuiAchievements;

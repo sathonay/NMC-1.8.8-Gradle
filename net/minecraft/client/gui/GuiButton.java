@@ -220,4 +220,14 @@ public class GuiButton extends Gui
     {
         this.width = width;
     }
+    
+    public int getButtonHeight()
+    {
+        return this.height;
+    }
+
+    public void setHeight(int height)
+    {
+        this.height = height;
+    }
 }

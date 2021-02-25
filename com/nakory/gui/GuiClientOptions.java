@@ -39,6 +39,14 @@ public class GuiClientOptions extends GuiScreen {
 		addButton(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168 + 11, I18n.format("gui.done", new Object[0])), (button) -> {
 			this.mc.displayGuiScreen(new GuiIngameMenu());
 		});
+		
+		
+		int height = 0;
+		for (GuiButton button : buttonList) {
+			button.xPosition = (width - button.getButtonWidth()) / 2;
+			button.yPosition = (this.height - button.getButtonHeight()) / 3 + height;
+			height += button.getButtonHeight() + 4;
+		}
 	}
 	
 	protected void addButton(GuiButton button, Consumer<GuiButton> action) {
