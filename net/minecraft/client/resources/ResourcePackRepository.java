@@ -8,6 +8,8 @@ import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
+import com.nakory.fix.ResourcePackImageScaler;
+
 import java.awt.image.BufferedImage;
 import java.io.Closeable;
 import java.io.File;
@@ -323,7 +325,7 @@ public class ResourcePackRepository
 
             try
             {
-                this.texturePackIcon = this.reResourcePack.getPackImage();
+            	this.texturePackIcon = ResourcePackImageScaler.scalePackImage(this.reResourcePack.getPackImage());
             }
             catch (IOException var2)
             {
