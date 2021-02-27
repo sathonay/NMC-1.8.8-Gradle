@@ -1,0 +1,11 @@
+.idea/*
+*.iml
+.gradle
+build/*
+run/logs
+run/nakory
+run/saves
+run/shaderpacks
+run/options.txt
+run/optionsof.txt
+run/usercache.json
