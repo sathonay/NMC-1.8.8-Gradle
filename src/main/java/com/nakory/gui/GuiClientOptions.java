@@ -1,8 +1,7 @@
 package com.nakory.gui;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
 import com.nakory.NakoryClient;
@@ -39,12 +38,12 @@ public class GuiClientOptions extends GuiScreen {
 		addButton(new GuiButton(200, this.width / 2 - 100, this.height / 6 + 168 + 11, I18n.format("gui.done", new Object[0])), (button) -> {
 			this.mc.displayGuiScreen(new GuiIngameMenu());
 		});
-		
-		
+
 		int height = 0;
-		for (GuiButton button : buttonList) {
-			button.xPosition = (width - button.getButtonWidth()) / 2;
-			button.yPosition = (this.height - button.getButtonHeight()) / 3 + height;
+		for (int i = buttonList.size() - 1; i >= 0; i--) {
+			GuiButton button = buttonList.get(i);
+			button.xPosition = (this.width - button.getButtonWidth()) / 2;
+			button.yPosition = this.height / 2 - height - button.getButtonHeight();
 			height += button.getButtonHeight() + 4;
 		}
 	}

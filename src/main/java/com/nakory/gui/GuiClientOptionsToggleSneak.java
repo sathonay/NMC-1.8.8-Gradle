@@ -31,9 +31,10 @@ public class GuiClientOptionsToggleSneak extends GuiClientOptions {
 			this.mc.displayGuiScreen(new GuiClientOptions());
 		});
 		int height = 0;
-		for (GuiButton button : buttonList) {
-			button.xPosition = (width - button.getButtonWidth()) / 2;
-			button.yPosition = (this.height - button.getButtonHeight()) / 3 + height;
+		for (int i = buttonList.size() - 1; i >= 0; i--) {
+			GuiButton button = buttonList.get(i);
+			button.xPosition = (this.width - button.getButtonWidth()) / 2;
+			button.yPosition = this.height / 2 - height - button.getButtonHeight();
 			height += button.getButtonHeight() + 4;
 		}
 	}

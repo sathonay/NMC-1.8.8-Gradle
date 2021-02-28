@@ -1,7 +1,7 @@
-.idea/*
+.idea
 *.iml
 .gradle
-build/*
+build
 run/logs
 run/nakory
 run/saves
@@ -9,3 +9,4 @@ run/shaderpacks
 run/options.txt
 run/optionsof.txt
 run/usercache.json
+run/crash-reports
