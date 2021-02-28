@@ -13,6 +13,7 @@ public class NakorySettings {
 	public boolean toggleSneak = true;
 	public boolean toggleSprint = true;
 	public boolean toggleFlyingBoost = true;
+	public boolean renderMenuBackground = true;
 	
 	
 	public static NakorySettings load() {

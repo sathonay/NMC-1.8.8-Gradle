@@ -15,6 +15,8 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+
+import com.nakory.NakoryClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.stream.GuiTwitchUserMode;
 import net.minecraft.client.renderer.GlStateManager;
@@ -647,7 +649,7 @@ public abstract class GuiScreen extends Gui implements GuiYesNoCallback
      */
     public void drawDefaultBackground()
     {
-        this.drawWorldBackground(0);
+        if (NakoryClient.getInstance().getSettings().renderMenuBackground) this.drawWorldBackground(0);
     }
 
     public void drawWorldBackground(int tint)
