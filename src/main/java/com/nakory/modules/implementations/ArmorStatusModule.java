@@ -98,7 +98,7 @@ public class ArmorStatusModule extends RenderableModule{
 		if (item.getItem().isDamageable()) {
 			int stringWidth = 20;
 			int damage = item.getMaxDamage() - item.getItemDamage();
-			Minecraft.getMinecraft().fontRendererObj.drawString(damage + "/" + item.getMaxDamage(), pos.getAbsoluteX() + 20, pos.getAbsoluteY() + yOffSet + 5, -1);
+			Minecraft.getMinecraft().fontRendererObj.drawString(damage + "/" + item.getMaxDamage(), pos.getAbsoluteX() + 20, pos.getAbsoluteY() + yOffSet + 5, options.get("color").getColor().toRGBA());
 		}
 		GL11.glPushMatrix();
 		

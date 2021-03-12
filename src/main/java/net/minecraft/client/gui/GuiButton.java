@@ -2,6 +2,7 @@ package net.minecraft.client.gui;
 
 import java.awt.Color;
 
+import com.nakory.gui.button.GuiClientSlider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
@@ -140,11 +141,11 @@ public class GuiButton extends Gui
 				fontColor = new Color(178, 190, 195).getRGB();
 				color = new Color(45, 52, 54, 153).getRGB();
 			} else if (this.hovered) {
-				if (!(this instanceof GuiOptionSlider || this instanceof GuiScreenOptionsSounds.Button) && animation < 4) animation++;
+				if (!(this instanceof GuiClientSlider || this instanceof GuiOptionSlider || this instanceof GuiScreenOptionsSounds.Button) && animation < 4) animation++;
 				 color = new Color(52, 73, 94, 153).getRGB();
 				//color = new Color(253, 121, 168, 153).getRGB();
 			} else {
-				if (!(this instanceof GuiOptionSlider || this instanceof GuiScreenOptionsSounds.Button) && animation > 0) animation--;
+				if (!(this instanceof GuiClientSlider || this instanceof GuiOptionSlider || this instanceof GuiScreenOptionsSounds.Button) && animation > 0) animation--;
 			}
 			/*
 	        if (this.hovered) {

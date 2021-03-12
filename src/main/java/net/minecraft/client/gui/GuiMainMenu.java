@@ -526,10 +526,12 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoCallback
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         */
         
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        /*GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);*/
         this.mc.getTextureManager().bindTexture(logo);
-        this.drawModalRectWithCustomSizedTexture(width / 2 - 64, height / 4 - 54, 0, 0, 128, 128, 128, 128);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
+        this.drawModalRectWithCustomSizedTexture(width / 2 - 32, height / 4 - 8, 0, 0, 64, 64, 64, 64);
 
 
         /*

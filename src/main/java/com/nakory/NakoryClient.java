@@ -46,7 +46,7 @@ public class NakoryClient {
 		hudPropertyApi.register(new ToggleSprintModule());
 		hudPropertyApi.register(new CPSModule());
 		hudPropertyApi.register(new KeystrokesModule());
-		hudPropertyApi.register(new NearPlayersModule());
+		//hudPropertyApi.register(new NearPlayersModule());
 	}
 	
 	@EventHandler

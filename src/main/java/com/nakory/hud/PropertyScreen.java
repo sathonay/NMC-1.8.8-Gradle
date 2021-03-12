@@ -11,9 +11,13 @@ import java.util.function.Predicate;
 
 import com.nakory.hud.util.ScreenPosition;
 
+import com.nakory.modules.RenderableModule;
+import com.nakory.modules.implementations.FPSRModule;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.util.ResourceLocation;
 
 public class PropertyScreen extends GuiScreen {
 
@@ -67,22 +71,30 @@ public class PropertyScreen extends GuiScreen {
 		super.drawDefaultBackground();
 
 		float zBackup = this.zLevel;
-		this.zLevel = 200;	
+		this.zLevel = 200;
 
 		renderers.forEach((renderer, position) -> {
-			this.drawHollowRect(position.getAbsoluteX(), position.getAbsoluteY(), renderer.getWidth(), renderer.getHeight(), renderer.isEnabled() ? new Color(0, 155, 0).getRGB() : new Color(155, 0, 0).getRGB());
+			this.drawHollowRect(position.getAbsoluteX(), position.getAbsoluteY(), renderer.getWidth(), renderer.getHeight());
 			renderer.renderDummy(position);
+			if (renderer instanceof RenderableModule) {
+				((RenderableModule) renderer).afterRender(position);
+			}
+			this.drawHollowRectBorder(position.getAbsoluteX(), position.getAbsoluteY(), renderer.getWidth(), renderer.getHeight());
 			});
 
 		this.zLevel = zBackup;
 	}
 	
-	private void drawHollowRect(int x, int y, int w, int h, int color) {
+	private void drawHollowRect(int x, int y, int w, int h) {
+		this.drawRect(x, y, x + w, y + h, new Color(144, 144, 144, 100).getRGB());
+	}
+
+	private void drawHollowRectBorder(int x, int y, int w, int h) {
+		int color = new Color(200, 200, 200).getRGB();
 		this.drawHorizontalLine(x - 1, x + w, y - 1, color);
 		this.drawHorizontalLine(x - 1, x + w, y + h, color);
 		this.drawVerticalLine(x - 1, y + h, y - 1, color);
 		this.drawVerticalLine(x + w, y + h, y - 1, color);
-		this.drawRect(x, y, x + w, y + h, new Color(144, 144, 144, 100).getRGB());
 	}
 
 
@@ -105,7 +117,25 @@ public class PropertyScreen extends GuiScreen {
 				ScreenPosition position = renderers.get(renderer);
 				deltaX = x - position.getAbsoluteX();
 				deltaY = y - position.getAbsoluteY();
-			} else if (button == 1) renderer.setEnable(!renderer.isEnabled());
+			} //else if (button == 1) renderer.setEnable(!renderer.isEnabled());
+		});
+
+		selectedRenderer.ifPresent(renderer -> {
+			System.out.println(x + " / " + y);
+			ScreenPosition position = renderers.get(renderer);
+			if (position.getAbsoluteX() < x  && x < position.getAbsoluteX() + 8 && position.getAbsoluteY() + renderer.getHeight() - 8 < y && y < position.getAbsoluteY() +  renderer.getHeight()) {
+				renderer.setEnable(!renderer.isEnabled());
+				selectedRenderer = Optional.empty();
+				Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
+			}
+
+			if (position.getAbsoluteX() + renderer.getWidth() - 8 < x  && x < position.getAbsoluteX() + renderer.getWidth() && position.getAbsoluteY() + renderer.getHeight() - 8 < y && y < position.getAbsoluteY() +  renderer.getHeight()) {
+				if (renderer instanceof RenderableModule) {
+					((RenderableModule) renderer).openOptions();
+				}
+				selectedRenderer = Optional.empty();
+				Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
+			}
 		});
 	}
 

@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 
 import com.nakory.NakoryClient;
 
+import com.nakory.gui.button.CustomizableColor;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiIngameMenu;
 import net.minecraft.client.gui.GuiScreen;
@@ -15,6 +16,8 @@ public class GuiClientOptions extends GuiScreen {
 	
 	protected NakorySettings settings = NakoryClient.getInstance().getSettings();
 	private final Map<GuiButton, Consumer<GuiButton>> actions = new HashMap<>();
+
+	private static CustomizableColor color = new CustomizableColor();
 	
 	@Override
 	public void initGui() {
@@ -37,6 +40,11 @@ public class GuiClientOptions extends GuiScreen {
 		addButton(new GuiButton(0, this.width / 2 - 100, this.height / 6 + 168 + 11, I18n.format("gui.done", new Object[0])), (button) -> {
 			this.mc.displayGuiScreen(new GuiIngameMenu());
 		});
+
+		/*ColorChooser colorChooser = new ColorChooser("Color", color);
+		addButton(colorChooser, button -> {
+			if (button instanceof ColorChooser) ((ColorChooser) button).openColorChooser();
+		});*/
 
 		int height = 0;
 		for (int i = buttonList.size() - 1; i >= 0; i--) {

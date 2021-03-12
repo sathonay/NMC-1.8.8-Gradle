@@ -15,12 +15,13 @@ import net.minecraft.client.gui.FontRenderer;
 
 public class CPSModule  extends RenderableModule {
 
-	private String text = "1 cps";
+	private String text = "0 cps";
 	private FontRenderer fontRenderer;
 	private int width;
 	
 	public CPSModule() {
 		fontRenderer = Minecraft.getMinecraft().fontRendererObj;
+		setBackgroundOffSet(-1, -1);
 	}
 	
 	@Override
@@ -34,7 +35,7 @@ public class CPSModule  extends RenderableModule {
 
 	@Override
 	public void render(ScreenPosition position) {
-		
+		drawBackground(position.getAbsoluteX(), position.getAbsoluteY(), getWidth(), getHeight());
 		final boolean pressed = Mouse.isButtonDown(0);
 		
 		if (pressed != this.wasPressed) {
@@ -42,7 +43,7 @@ public class CPSModule  extends RenderableModule {
 			this.lastPressed = System.currentTimeMillis();
 			if (pressed) this.clicks.add(this.lastPressed);
 		}
-		Minecraft.getMinecraft().fontRendererObj.drawString(text, position.getAbsoluteX(), position.getAbsoluteY(), 0xFFFFFF);
+		Minecraft.getMinecraft().fontRendererObj.drawString(text, position.getAbsoluteX(), position.getAbsoluteY(), options.get("color").getColor().toRGBA());
 	}
 	
 	@Override
@@ -52,12 +53,13 @@ public class CPSModule  extends RenderableModule {
 
 	@Override
 	public int getWidth() {
-		return Minecraft.getMinecraft().fontRendererObj.getStringWidth(text = (Minecraft.getMinecraft().currentScreen instanceof PropertyScreen ? "1 cps" : getCPS() + " cps"));
+		return Minecraft.getMinecraft().fontRendererObj.getStringWidth(text = (Minecraft.getMinecraft().currentScreen instanceof PropertyScreen ? "0 cps" : getCPS() + " cps"));
 	}
 
 	@Override
 	public void renderDummy(ScreenPosition position) {
-		Minecraft.getMinecraft().fontRendererObj.drawString(text, position.getAbsoluteX(), position.getAbsoluteY(), 0xFFFFFF);
+		drawBackground(position.getAbsoluteX(), position.getAbsoluteY(), getWidth(), getHeight());
+		Minecraft.getMinecraft().fontRendererObj.drawString(text, position.getAbsoluteX(), position.getAbsoluteY(), options.get("color").getColor().toRGBA());
 	}
 	
 	private final List<Long> clicks = new ArrayList<>();

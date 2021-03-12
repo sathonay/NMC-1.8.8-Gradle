@@ -19,6 +19,7 @@ public class ToggleSprintModule extends RenderableModule {
 	
 	public ToggleSprintModule() {
 		fontRenderer = Minecraft.getMinecraft().fontRendererObj;
+		setBackgroundOffSet(-1, -1);
 	}
 	
 	@Override
@@ -28,7 +29,8 @@ public class ToggleSprintModule extends RenderableModule {
 	
 	@Override
 	public void render(ScreenPosition position) {
-		Minecraft.getMinecraft().fontRendererObj.drawString(text, position.getAbsoluteX(), position.getAbsoluteY(), 0xFFFFFF);
+		drawBackground(position.getAbsoluteX(), position.getAbsoluteY(), getWidth(), getHeight());
+		Minecraft.getMinecraft().fontRendererObj.drawString(text, position.getAbsoluteX(), position.getAbsoluteY(), options.get("color").getColor().toRGBA());
 	}
 
 	@Override
@@ -38,11 +40,14 @@ public class ToggleSprintModule extends RenderableModule {
 
 	@Override
 	public int getWidth() {
-		return Minecraft.getMinecraft().fontRendererObj.getStringWidth(Minecraft.getMinecraft().currentScreen instanceof PropertyScreen ? text = "[Flying]" : (text = Minecraft.getMinecraft().thePlayer.movementInput.getDisplayText()));
+		if (Minecraft.getMinecraft().currentScreen instanceof PropertyScreen) text = "[Flying]";
+		else text = Minecraft.getMinecraft().thePlayer.movementInput.getDisplayText();
+		if (text.equalsIgnoreCase("")) return -1;
+		else return Minecraft.getMinecraft().fontRendererObj.getStringWidth(text);
 	}
 
 	@Override
 	public void renderDummy(ScreenPosition position) {
-		Minecraft.getMinecraft().fontRendererObj.drawString(text, position.getAbsoluteX(), position.getAbsoluteY(), 0xFFFFFF);
+		render(position);
 	}
 }

@@ -98,7 +98,6 @@ public class CapeThread extends Thread {
 	    AbstractClientPlayer player = this.playerRef.get();
 	    
 	    if(player == null) {
-	        this.stop();
 	    	return;
 	    }
 	    
@@ -106,27 +105,16 @@ public class CapeThread extends Thread {
 	    ThreadDownloadImageData textureCape = new ThreadDownloadImageData((File)null, capeUrl, (ResourceLocation)null, iib);
 	    textureCape.pipeline = true;
 	    textureManager.loadTexture(resourceLocation, textureCape);
-        this.stop();
 	}
 
-	private static boolean doesURLExist(String url) throws IOException
+	private static boolean doesURLExist(String urlStr) throws IOException
     {
-    	
-    	URL url2 = new URL(url);
-        // We want to check the current URL
-        HttpURLConnection.setFollowRedirects(false);
 
-        HttpURLConnection httpURLConnection = (HttpURLConnection) url2.openConnection();
-
-        // We don't need to get data
-        httpURLConnection.setRequestMethod("HEAD");
-
-        // Some websites don't like programmatic access so pretend to be a browser
-        //httpURLConnection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2 (.NET CLR 3.5.30729)");
-        int responseCode = httpURLConnection.getResponseCode();
-        httpURLConnection.disconnect();
-
-        // We only accept response code 200
-        return responseCode == HttpURLConnection.HTTP_OK;
+		URL url = new URL(urlStr);
+		HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+		huc.setRequestMethod("HEAD");
+		boolean valid = huc.getResponseCode() == HttpURLConnection.HTTP_OK;
+		huc.disconnect();
+		return valid;
     }
 }

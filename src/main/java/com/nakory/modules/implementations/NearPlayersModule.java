@@ -17,7 +17,11 @@ public class NearPlayersModule extends RenderableModule {
 
 	private List<String> lines;
 	private int width, height;
-	
+
+	public NearPlayersModule() {
+		setBackgroundOffSet(-1, -1);
+	}
+
 	@Override
 	public int getHeight() {
 		return lines.size() * Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT;
@@ -53,17 +57,25 @@ public class NearPlayersModule extends RenderableModule {
 
 	@Override
 	public void render(ScreenPosition position) {
+		int yOffSet = 0;
 		int index = 0;
 		for (String line : lines) {
-			Minecraft.getMinecraft().fontRendererObj.drawString(line, position.getAbsoluteX(), position.getAbsoluteY() + (Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT * index++), 0xFFFFFF);
+			drawBackground(position.getAbsoluteX(), position.getAbsoluteY() + (Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT * index) + yOffSet, Minecraft.getMinecraft().fontRendererObj.getStringWidth(line), Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT - yOffSet);
+			Minecraft.getMinecraft().fontRendererObj.drawString(line, position.getAbsoluteX(), position.getAbsoluteY() + (Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT * index), options.get("color").getColor().toRGBA());
+			yOffSet = 1;
+			index++;
 		}
 	}
 
 	@Override
 	public void renderDummy(ScreenPosition position) {
+		int yOffSet = 0;
 		int index = 0;
 		for (String line : lines) {
-			Minecraft.getMinecraft().fontRendererObj.drawString(line, position.getAbsoluteX(), position.getAbsoluteY() + (Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT * index++), 0xFFFFFF);
+			drawBackground(position.getAbsoluteX(), position.getAbsoluteY() + (Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT * index) + yOffSet, Minecraft.getMinecraft().fontRendererObj.getStringWidth(line), Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT - yOffSet);
+			Minecraft.getMinecraft().fontRendererObj.drawString(line, position.getAbsoluteX(), position.getAbsoluteY() + (Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT * index), options.get("color").getColor().toRGBA());
+			yOffSet = 1;
+			index++;
 		}
 	}
 }

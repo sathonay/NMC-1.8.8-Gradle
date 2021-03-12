@@ -93,7 +93,7 @@ public class ToggleSprintMovementInput extends MovementInput {
         
         Optional<ToggleSprintModule> renderer = NakoryClient.getInstance().getHudPropertyApi().getRendererByInstance(ToggleSprintModule.class);
         
-        if (NakoryClient.getInstance().getSettings().toggleSneak && renderer.isPresent() && renderer.get().isEnabled()) {
+        if (NakoryClient.getInstance().getSettings().toggleSneak && renderer.isPresent()) {
         	ToggleSprintModule mod = renderer.get();
         	if (gameSettings.keyBindSneak.isKeyDown()) {
         		if (sneakWasPressed == 0) {
@@ -113,7 +113,7 @@ public class ToggleSprintMovementInput extends MovementInput {
             this.moveForward = (float)((double)this.moveForward * 0.3D);
         }
         
-        if (NakoryClient.getInstance().getSettings().toggleSprint && renderer.isPresent() && renderer.get().isEnabled()) {
+        if (NakoryClient.getInstance().getSettings().toggleSprint && renderer.isPresent()) {
         	ToggleSprintModule mod = renderer.get();
         	
         	if (gameSettings.keyBindSprint.isKeyDown()) {
@@ -133,7 +133,7 @@ public class ToggleSprintMovementInput extends MovementInput {
         	player.setSprinting(true);
         }
         
-        if (NakoryClient.getInstance().getSettings().toggleFlyingBoost && renderer.isPresent() && renderer.get().isEnabled() && player.capabilities.isFlying && (Minecraft.getMinecraft().getRenderViewEntity() == player) && sprint) {
+        if (NakoryClient.getInstance().getSettings().toggleFlyingBoost && renderer.isPresent() && player.capabilities.isFlying && (Minecraft.getMinecraft().getRenderViewEntity() == player) && sprint) {
         	ToggleSprintModule mod = renderer.get();
         	if (boostedFlySpeed < 0.0F || this.player.capabilities.getFlySpeed() != boostedFlySpeed) originalFlySpeed = this.player.capabilities.getFlySpeed();
         	boostedFlySpeed = originalFlySpeed * mod.flyBoostFactor;

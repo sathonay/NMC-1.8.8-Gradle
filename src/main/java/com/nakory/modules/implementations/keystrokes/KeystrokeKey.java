@@ -19,6 +19,8 @@ import net.minecraft.client.settings.KeyBinding;
 
 public class KeystrokeKey {
 
+	private KeystrokesModule module;
+
 	private final KeyBinding key;
 	private int lastKeyCode = 0;
 	private String keyName = "None";
@@ -28,7 +30,8 @@ public class KeystrokeKey {
 	private final int width;
 	private final int height;
 	
-	public KeystrokeKey(KeyBinding key, int xOffSet, int yOffSet, int width, int height) {
+	public KeystrokeKey(KeystrokesModule module, KeyBinding key, int xOffSet, int yOffSet, int width, int height) {
+		this.module = module;
 		this.key = key;
 		this.xOffSet = xOffSet;
 		this.yOffSet = yOffSet;
@@ -62,11 +65,11 @@ public class KeystrokeKey {
         		position.getAbsoluteY() + this.yOffSet,
         		position.getAbsoluteX() + this.xOffSet + this.width,
         		position.getAbsoluteY() + this.yOffSet + this.height,
-        		this.isDown() ? new Color(255, 255, 255, 102).getRGB() : new Color(0, 0, 0, 102).getRGB());
+        		this.isDown() ? module.options.get("background_down").getColor().toRGBA() : module.options.get("background").getColor().toRGBA());
         Minecraft.getMinecraft().fontRendererObj.drawString(
         		this.getKeyName(),
         		position.getAbsoluteX() + (float)this.xOffSet + (this.width / 2) - ((Minecraft.getMinecraft().fontRendererObj.getStringWidth(this.getKeyName()) - 2) / 2),
         		position.getAbsoluteY() + (float)this.yOffSet + (this.height / 2) - ((Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT - 3) / 2),
-        		this.isDown() ? Color.BLACK.getRGB() : Color.WHITE.getRGB(), false);
+        		this.isDown() ? module.options.get("color_down").getColor().toRGBA() : module.options.get("color").getColor().toRGBA() , false);
 	}
 }

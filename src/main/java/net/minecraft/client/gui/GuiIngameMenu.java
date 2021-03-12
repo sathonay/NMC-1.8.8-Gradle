@@ -125,7 +125,7 @@ public class GuiIngameMenu extends GuiScreen
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         this.mc.getTextureManager().bindTexture(logo);
-        this.drawModalRectWithCustomSizedTexture(width / 2 - 32, height / 4 - 54, 0, 0, 64, 64, 64, 64);
+        this.drawModalRectWithCustomSizedTexture(width / 2 - 24, height / 4 - 48, 0, 0, 48, 48, 48, 48);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 }

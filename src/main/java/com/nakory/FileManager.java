@@ -81,4 +81,33 @@ public class FileManager {
 			return Optional.empty();
 		}
 	}
+
+	public Optional<String> readFromFile(File file) {
+		try {
+
+			if (!file.exists()) return Optional.empty();
+
+			FileInputStream inputStream = new FileInputStream(file);
+			InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+			StringBuilder builder = new StringBuilder();
+			String line;
+
+			while((line = bufferedReader.readLine()) != null) {
+				builder.append(line);
+			}
+
+			bufferedReader.close();
+			inputStreamReader.close();
+			inputStream.close();
+
+			return Optional.of(builder.toString());
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Optional.empty();
+		}
+	}
 }
